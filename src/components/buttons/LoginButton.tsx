@@ -6,6 +6,10 @@ export default async function LoginButton() {
   return (
     <div>
       <a href="/.auth/login/google">Log in with Google</a>
+      {/* Display profile json as text */}
+      <div>
+        <pre>{JSON.stringify(profile, null, 2)}</pre>
+      </div>
     </div>
   );
 }
