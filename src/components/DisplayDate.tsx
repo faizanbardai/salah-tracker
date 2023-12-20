@@ -1,6 +1,7 @@
+"use client";
 var moment = require("moment-hijri");
 
-export default function Day() {
+export default function DisplayDate() {
   const date = new Date();
   const displayDate = date.toLocaleDateString("en-US", {
     weekday: "long",
