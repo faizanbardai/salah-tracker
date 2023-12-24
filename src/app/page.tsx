@@ -1,9 +1,9 @@
-import LoginButton from "@/components/buttons/LoginButton";
+import Login from "../components/buttons/Login";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <LoginButton />
+      <Login />
     </main>
   );
 }
