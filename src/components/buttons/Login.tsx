@@ -30,12 +30,21 @@ export default function Component() {
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">
-          <DropdownItem key="profile" className="h-14 gap-2">
+          <DropdownItem
+            key="profile"
+            className="h-14 gap-2"
+            textValue="Profile"
+          >
             <p className="font-semibold">Signed in as</p>
             <p className="font-semibold">{session.user.email || ""}</p>
           </DropdownItem>
-          <DropdownItem key="logout" color="danger" onClick={() => signOut()}>
-            Log Out
+          <DropdownItem
+            key="logout"
+            color="danger"
+            onClick={() => signOut()}
+            textValue="Logout"
+          >
+            Logout
           </DropdownItem>
         </DropdownMenu>
       </Dropdown>
