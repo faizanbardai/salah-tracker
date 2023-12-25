@@ -1,9 +1,9 @@
-import NavBar from "../components/sections/NavBar";
+import DisplayDate from "../components/DisplayDate";
 
 export default function Home() {
   return (
     <main className="min-h-screen container mx-auto">
-      <NavBar />
+      <DisplayDate />
     </main>
   );
 }

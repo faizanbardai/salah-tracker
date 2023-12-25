@@ -1,19 +1,30 @@
 "use client";
-var moment = require("moment-hijri");
+import { useEffect, useState } from "react";
+const moment = require("moment-hijri");
 
 export default function DisplayDate() {
-  const date = new Date();
-  const displayDate = date.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  const hijriDate = moment(date).format("iYYYY iMMMM iDD ");
+  const [date, setDate] = useState<string>();
+  const [hijriDate, setHijriDate] = useState<string>();
+
+  useEffect(() => {
+    const today = new Date();
+    setDate(
+      today.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+    setHijriDate(
+      moment(today.toISOString().slice(0, 10)).format("iYYYY iMMMM iDD ")
+    );
+  }, []);
+
   return (
     <div className="m-2">
       <div className="text-2xl text-center">
-        {displayDate} <br />
+        {date} <br />
         {hijriDate}
       </div>
     </div>
