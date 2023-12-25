@@ -16,9 +16,7 @@ export default function DisplayDate() {
         day: "numeric",
       })
     );
-    setHijriDate(
-      moment(today.toISOString().slice(0, 10)).format("iYYYY iMMMM iDD ")
-    );
+    setHijriDate(moment(today).format("iYYYY iMMMM iDD"));
   }, []);
 
   return (
