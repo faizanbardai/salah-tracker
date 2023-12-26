@@ -41,7 +41,7 @@ export default function Component() {
           <DropdownItem
             key="logout"
             color="danger"
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: "/" })}
             textValue="Logout"
           >
             Logout
@@ -57,7 +57,7 @@ export default function Component() {
           as={Link}
           color="primary"
           variant="flat"
-          onClick={() => signIn()}
+          onClick={() => signIn("google", { callbackUrl: "/prayer" })}
         >
           Login
         </Button>
