@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Providers } from "../service/auth/Providers";
+import { Providers } from "../providers/Providers";
 import NavBar from "../components/sections/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`h-screen dark text-foreground bg-background ${inter}`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`h-screen ${inter}`}>
         <Providers>
           <NavBar />
           {children}
