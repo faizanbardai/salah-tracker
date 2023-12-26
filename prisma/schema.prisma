@@ -1,0 +1,38 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+  id         String      @id @default(cuid())
+  email      String?     @unique
+  prayerDays PrayerDay[]
+}
+
+model PrayerDay {
+  id       String       @id @default(cuid())
+  date     DateTime
+  userId   String
+  user     User         @relation(fields: [userId], references: [id])
+  fajr     PrayerStatus @default(NOT_PRAYED)
+  dhuhr    PrayerStatus @default(NOT_PRAYED)
+  asr      PrayerStatus @default(NOT_PRAYED)
+  maghrib  PrayerStatus @default(NOT_PRAYED)
+  isha     PrayerStatus @default(NOT_PRAYED)
+  tahajjud PrayerStatus @default(NOT_PRAYED)
+}
+
+// prayer status: 0 = not prayed, 1 = prayed qada, 2 = prayed on time, 3 = prayed with jamaat
+enum PrayerStatus {
+  NOT_PRAYED
+  PRAYED_QADA
+  PRAYED_ON_TIME
+  PRAYED_WITH_JAMAAT
+}
