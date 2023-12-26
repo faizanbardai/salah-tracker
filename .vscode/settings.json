@@ -1,6 +1,12 @@
 {
-  "cSpell.words": ["hijri", "salah"],
-  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
-  "appService.defaultWebAppToDeploy": "/subscriptions/65286ad2-e826-46f2-bfbb-564bc9f95965/resourceGroups/Salah-Tracker/providers/Microsoft.Web/sites/salah-tracker",
-  "appService.deploySubpath": "."
+  "cSpell.words": [
+    "Dhuhr",
+    "Fajr",
+    "hijri",
+    "Isha",
+    "JAMAAT",
+    "Maghrib",
+    "QADA",
+    "salah"
+  ]
 }
