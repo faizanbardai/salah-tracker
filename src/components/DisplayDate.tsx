@@ -20,11 +20,9 @@ export default function DisplayDate() {
   }, []);
 
   return (
-    <div className="m-2">
-      <div className="text-2xl text-center">
-        {date} <br />
-        {hijriDate}
-      </div>
+    <div className="text-2xl text-center mb-1">
+      {date} <br />
+      {hijriDate}
     </div>
   );
 }
