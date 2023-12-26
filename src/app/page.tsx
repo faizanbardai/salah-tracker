@@ -7,5 +7,5 @@ export default function Home() {
   if (session?.user) {
     redirect("/prayer");
   }
-  return <main className="container mx-auto">Test</main>;
+  return <main className="container mx-auto"></main>;
 }

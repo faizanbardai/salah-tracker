@@ -4,9 +4,9 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 export default function PrayerViewTabs() {
   return (
-    <div className="flex w-full flex-col">
-      <Tabs aria-label="Options" fullWidth>
-        <Tab key="photos" title="Photos">
+    <div className="flex w-full flex-col px-2">
+      <Tabs aria-label="Options" fullWidth color="primary">
+        <Tab key="photos" title="Day">
           <Card>
             <CardBody>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -16,7 +16,7 @@ export default function PrayerViewTabs() {
             </CardBody>
           </Card>
         </Tab>
-        <Tab key="music" title="Music">
+        <Tab key="music" title="Week">
           <Card>
             <CardBody>
               Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -26,7 +26,7 @@ export default function PrayerViewTabs() {
             </CardBody>
           </Card>
         </Tab>
-        <Tab key="videos" title="Videos">
+        <Tab key="videos" title="Month">
           <Card>
             <CardBody>
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
