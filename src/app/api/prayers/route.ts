@@ -9,23 +9,33 @@ export async function POST(req: NextRequest) {
     return NextResponse.error();
   }
   const { date, prayer, status } = await req.json();
-  const prayerDay = await prisma.prayerDay.findFirst({
+
+  const existingRecord = await prisma.prayerDay.findFirst({
     where: {
       date: date,
       user: { email: session.user.email },
     },
   });
-  if (!prayerDay) {
-    return NextResponse.error();
+
+  if (existingRecord) {
+    const updatedRecord = await prisma.prayerDay.update({
+      where: {
+        id: existingRecord.id,
+      },
+      data: {
+        [prayer]: status,
+      },
+    });
+    return NextResponse.json(updatedRecord);
   }
-  const prayerDayUpdate = await prisma.prayerDay.update({
-    where: {
-      id: prayerDay.id,
-    },
+
+  const newRecord = await prisma.prayerDay.create({
     data: {
+      date: date,
+      user: { connect: { email: session.user.email } },
       [prayer]: status,
     },
   });
 
-  return NextResponse.json(prayerDayUpdate);
+  return NextResponse.json(newRecord);
 }
