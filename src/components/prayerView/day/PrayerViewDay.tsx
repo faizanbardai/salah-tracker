@@ -44,7 +44,7 @@ function PrayerRow(props: PrayerRowProps) {
       <CardBody>
         <div className="flex gap-4 items-center">
           <div className="flex-1">{getPrayerDisplayName(prayer)}</div>
-          {loading && <Spinner color="primary" size="sm" />}
+          {loading && <Spinner color="primary" />}
           {prayerStatuses.map((status) => (
             <PrayerStatusButton
               key={status}
