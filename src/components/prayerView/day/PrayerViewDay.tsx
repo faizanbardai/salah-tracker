@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody, Spinner } from "@nextui-org/react";
 
 import {
   getPrayerDisplayName,
@@ -24,7 +24,6 @@ export default function PrayerViewDay({
       key={prayer}
       date={date}
       prayer={prayer}
-      status={userPrayerDay[prayer as keyof PrayerDay]}
       userPrayerStatus={userPrayerDay[prayer as keyof PrayerDay]}
     />
   ));
@@ -33,18 +32,19 @@ export default function PrayerViewDay({
 type PrayerRowProps = {
   date: string;
   prayer: string;
-  status: string;
   userPrayerStatus: string;
 };
 function PrayerRow(props: PrayerRowProps) {
-  const { date, status, prayer, userPrayerStatus } = props;
+  const { date, prayer, userPrayerStatus } = props;
   const [prayerStatus, setPrayerStatus] = useState(userPrayerStatus);
+  const [loading, setLoading] = useState(false);
   const prayerStatuses = getPrayerStatus();
   return (
     <Card className="mb-2" key={prayer}>
       <CardBody>
         <div className="flex gap-4 items-center">
           <div className="flex-1">{getPrayerDisplayName(prayer)}</div>
+          {loading && <Spinner color="primary" />}
           {prayerStatuses.map((status) => (
             <PrayerStatusButton
               key={status}
@@ -53,6 +53,8 @@ function PrayerRow(props: PrayerRowProps) {
               prayer={prayer}
               prayerStatus={prayerStatus}
               setPrayerStatus={setPrayerStatus}
+              loading={loading}
+              setLoading={setLoading}
             />
           ))}
         </div>

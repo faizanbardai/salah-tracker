@@ -12,9 +12,19 @@ type PrayerStatusButtonProps = {
   prayer: string;
   prayerStatus: string;
   setPrayerStatus: Dispatch<SetStateAction<string>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 };
 export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
-  const { date, prayer, status, prayerStatus, setPrayerStatus } = props;
+  const {
+    date,
+    prayer,
+    status,
+    prayerStatus,
+    setPrayerStatus,
+    loading,
+    setLoading,
+  } = props;
 
   const icon = PrayerStatusIcon(status, prayerStatus);
   const color = getPrayerStatusColor(status, prayerStatus);
@@ -24,16 +34,15 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
 
   function handleClick() {
     if (prayerStatus === status) return;
+    setLoading(true);
+    setPrayerStatus(status);
     fetch("/api/prayers", {
       method: "POST",
       body: JSON.stringify({ date, prayer, status }),
     })
-      .then((res) => {
-        if (res.ok) setPrayerStatus(status);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(() => {})
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -46,6 +55,7 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
       variant={variant}
       className="border-none"
       onClick={handleClick}
+      disabled={loading}
     >
       {icon}
     </Button>
