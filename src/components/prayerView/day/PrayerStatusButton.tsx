@@ -5,6 +5,7 @@ import { Button, ButtonProps } from "@nextui-org/react";
 
 import PrayerStatusIcon from "@/components/buttons/PrayerStatusIcon";
 import getPrayerStatusColor from "@/utils/getPrayerStatusColor";
+import { PrayerStatus } from "@/enum/Prayers";
 
 type PrayerStatusButtonProps = {
   date: string;
@@ -33,12 +34,13 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
     prayerStatus === status ? "solid" : "bordered";
 
   function handleClick() {
-    if (prayerStatus === status) return;
+    const newStatus =
+      prayerStatus === status ? PrayerStatus.NOT_PRAYED : status;
     setLoading(true);
-    setPrayerStatus(status);
+    setPrayerStatus(newStatus);
     fetch("/api/prayers", {
       method: "POST",
-      body: JSON.stringify({ date, prayer, status }),
+      body: JSON.stringify({ date, prayer, status: newStatus }),
     })
       .then(() => {})
       .catch((err) => console.error(err))
