@@ -11,7 +11,7 @@ export default function getPrayerStatusColor(
       color = "danger";
       break;
     case PrayerStatus.PRAYED_QADA:
-      color = "secondary";
+      color = "warning";
       break;
     case PrayerStatus.PRAYED_ON_TIME:
       color = "primary";
