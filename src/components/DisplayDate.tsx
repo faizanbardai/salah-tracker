@@ -1,10 +1,13 @@
 "use client";
-import { Button } from "@nextui-org/react";
-import { useState } from "react";
 const moment = require("moment-hijri");
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@nextui-org/react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 
 export default function DisplayDate({ date }: { date: string }) {
+  const router = useRouter();
+
   const [year, month, day] = date.split("-");
   const dateToUse = new Date(
     parseInt(year),
@@ -31,21 +34,41 @@ export default function DisplayDate({ date }: { date: string }) {
     }
   }
 
+  function redirectToYesterday() {
+    const yesterday = new Date(dateToUse);
+    yesterday.setDate(yesterday.getDate() - 1);
+    redirectToDate(yesterday);
+  }
+
+  function redirectToTomorrow() {
+    const tomorrow = new Date(dateToUse);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    redirectToDate(tomorrow);
+  }
+
+  function redirectToDate(date: Date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    router.push(`/prayer/${year}-${month}-${day}`);
+  }
+
   return (
     <div className="flex justify-between mb-2">
-      <Button isIconOnly>
-        <MdNavigateBefore size="25" />
+      <Button isIconOnly color="success">
+        <MdNavigateBefore size="25" onClick={redirectToYesterday} />
       </Button>
       <Button
-        variant="bordered"
+        variant="solid"
+        color="secondary"
         fullWidth
         className="flex-auto mx-2"
         onClick={handleClick}
       >
         {dateToDisplay}
       </Button>
-      <Button isIconOnly>
-        <MdOutlineNavigateNext size="25" />
+      <Button isIconOnly color="success">
+        <MdOutlineNavigateNext size="25" onClick={redirectToTomorrow} />
       </Button>
     </div>
   );
