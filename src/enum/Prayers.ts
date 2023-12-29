@@ -1,9 +1,9 @@
 const Prayers = {
-  Fajr: "Fajr",
-  Dhuhr: "Dhuhr",
-  Asr: "Asr",
-  Maghrib: "Maghrib",
-  Isha: "Isha",
+  fajr: "fajr",
+  dhuhr: "dhuhr",
+  asr: "asr",
+  maghrib: "maghrib",
+  isha: "isha",
 };
 
 const PrayerStatus = {
@@ -17,8 +17,31 @@ const getPrayers = () => {
   return Object.values(Prayers);
 };
 
+const getPrayerDisplayName = (prayer: string) => {
+  switch (prayer) {
+    case Prayers.fajr:
+      return "Fajr";
+    case Prayers.dhuhr:
+      return "Dhuhr";
+    case Prayers.asr:
+      return "Asr";
+    case Prayers.maghrib:
+      return "Maghrib";
+    case Prayers.isha:
+      return "Isha";
+    default:
+      return "Unknown";
+  }
+};
+
 const getPrayerStatus = () => {
   return Object.values(PrayerStatus);
 };
 
-export { Prayers, getPrayers, PrayerStatus, getPrayerStatus };
+export {
+  Prayers,
+  getPrayers,
+  PrayerStatus,
+  getPrayerStatus,
+  getPrayerDisplayName,
+};
