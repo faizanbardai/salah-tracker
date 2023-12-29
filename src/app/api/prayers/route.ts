@@ -10,9 +10,11 @@ export async function POST(req: NextRequest) {
   }
   const { date, prayer, status } = await req.json();
 
+  const dateTime = new Date(date);
+
   const existingRecord = await prisma.prayerDay.findFirst({
     where: {
-      date: date,
+      date: dateTime.toISOString(),
       user: { email: session.user.email },
     },
   });
@@ -31,7 +33,7 @@ export async function POST(req: NextRequest) {
 
   const newRecord = await prisma.prayerDay.create({
     data: {
-      date: date,
+      date: dateTime.toISOString(),
       user: { connect: { email: session.user.email } },
       [prayer]: status,
     },

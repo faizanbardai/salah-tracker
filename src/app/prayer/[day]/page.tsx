@@ -35,7 +35,7 @@ async function getUserPrayersForDay(date: string, email: string) {
       user: {
         email,
       },
-      date,
+      date: new Date(date).toISOString(),
     },
   });
   if (existingPrayersForDay) return existingPrayersForDay;

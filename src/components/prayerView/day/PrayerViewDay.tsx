@@ -24,7 +24,11 @@ export default function PrayerViewDay({
       key={prayer}
       date={date}
       prayer={prayer}
-      userPrayerStatus={userPrayerDay[prayer as keyof PrayerDay]}
+      userPrayerStatus={
+        userPrayerDay[
+          prayer as "fajr" | "dhuhr" | "asr" | "maghrib" | "isha" | "tahajjud"
+        ]
+      }
     />
   ));
 }
