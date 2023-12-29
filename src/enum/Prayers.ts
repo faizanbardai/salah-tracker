@@ -29,13 +29,13 @@ const getPrayerDisplayName = (prayer: string) => {
       return "Maghrib";
     case Prayers.isha:
       return "Isha";
-    default:
-      return "Unknown";
   }
 };
 
 const getPrayerStatus = () => {
-  return Object.values(PrayerStatus);
+  return Object.values(PrayerStatus).filter(
+    (x) => x !== PrayerStatus.NOT_PRAYED
+  );
 };
 
 export {
