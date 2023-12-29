@@ -12,7 +12,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "PrayerDay" (
     "id" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "date" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "fajr" "PrayerStatus" NOT NULL DEFAULT 'NOT_PRAYED',
     "dhuhr" "PrayerStatus" NOT NULL DEFAULT 'NOT_PRAYED',
@@ -26,6 +26,9 @@ CREATE TABLE "PrayerDay" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "PrayerDay_date_key" ON "PrayerDay"("date");
 
 -- AddForeignKey
 ALTER TABLE "PrayerDay" ADD CONSTRAINT "PrayerDay_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
