@@ -5,7 +5,12 @@ import { redirect } from "next/navigation";
 export default function Home() {
   const { data: session } = useSession();
   if (session?.user) {
-    redirect("/prayer");
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    redirect(`/prayer/${year}-${month}-${day}`);
+  } else {
+    return <main className="container mx-auto"></main>;
   }
-  return <main className="container mx-auto"></main>;
 }
