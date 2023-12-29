@@ -9,14 +9,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.error();
   }
   const { date, prayer, status } = await req.json();
-  const prayerDay = await prisma.prayerDay.update({
+  const prayerDay = await prisma.prayerDay.findFirst({
     where: {
       date: date,
       user: { email: session.user.email },
+    },
+  });
+  if (!prayerDay) {
+    return NextResponse.error();
+  }
+  const prayerDayUpdate = await prisma.prayerDay.update({
+    where: {
+      id: prayerDay.id,
     },
     data: {
       [prayer]: status,
     },
   });
-  return NextResponse.json(prayerDay);
+
+  return NextResponse.json(prayerDayUpdate);
 }
