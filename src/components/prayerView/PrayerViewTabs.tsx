@@ -1,14 +1,22 @@
 "use client";
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
-import PrayerViewDay from "./PrayerViewDay";
+import PrayerViewDay from "./day/PrayerViewDay";
+import { PrayerDay } from "@/types/prayerDay";
 
-export default function PrayerViewTabs() {
+type PrayerViewTabsProps = {
+  date: string;
+  userPrayerDay: PrayerDay;
+};
+export default function PrayerViewTabs({
+  date,
+  userPrayerDay,
+}: PrayerViewTabsProps) {
   return (
     <div className="flex w-full flex-col px-2">
       <Tabs aria-label="Options" fullWidth color="primary">
         <Tab key="Day" title="Day">
-          <PrayerViewDay />
+          <PrayerViewDay date={date} userPrayerDay={userPrayerDay} />
         </Tab>
         <Tab key="Week" title="Week">
           <Card>
