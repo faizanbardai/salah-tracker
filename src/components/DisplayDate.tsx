@@ -54,7 +54,7 @@ export default function DisplayDate({ date }: { date: string }) {
   }
 
   return (
-    <div className="flex justify-between mb-2">
+    <div className="flex justify-between pb-3">
       <Button isIconOnly color="success">
         <MdNavigateBefore size="25" onClick={redirectToYesterday} />
       </Button>
