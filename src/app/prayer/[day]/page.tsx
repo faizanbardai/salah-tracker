@@ -8,7 +8,6 @@ import { authOptions } from "@/service/auth/authOptions";
 import { getServerSession } from "next-auth/next";
 
 // Components
-import DisplayDate from "@/components/DisplayDate";
 import PrayerViewTabs from "@/components/prayerView/PrayerViewTabs";
 
 type PrayerDayProps = {
@@ -23,12 +22,7 @@ export default async function PrayerDay({ params }: PrayerDayProps) {
   const email = session.user.email;
   const userPrayerDay = await getUserPrayersForDay(date, email);
 
-  return (
-    <>
-      <DisplayDate date={params.day} />
-      <PrayerViewTabs date={params.day} userPrayerDay={userPrayerDay} />
-    </>
-  );
+  return <PrayerViewTabs date={params.day} userPrayerDay={userPrayerDay} />;
 }
 
 async function getUserPrayersForDay(date: string, email: string) {
