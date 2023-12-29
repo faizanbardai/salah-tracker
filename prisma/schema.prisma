@@ -18,7 +18,7 @@ model User {
 
 model PrayerDay {
   id       String       @id @default(cuid())
-  date     DateTime
+  date     String       @unique
   userId   String
   user     User         @relation(fields: [userId], references: [id])
   fajr     PrayerStatus @default(NOT_PRAYED)
