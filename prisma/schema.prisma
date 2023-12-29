@@ -16,7 +16,7 @@ model User {
 
 model PrayerDay {
   id       String       @id @default(cuid())
-  date     String       @unique
+  date     String
   userId   String
   fajr     PrayerStatus @default(NOT_PRAYED)
   dhuhr    PrayerStatus @default(NOT_PRAYED)
