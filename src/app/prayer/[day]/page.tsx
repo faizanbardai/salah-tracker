@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 // database
 import { prisma } from "@/lib/prisma";
+import { $Enums } from "@prisma/client";
 
 // auth
 import { authOptions } from "@/service/auth/authOptions";
@@ -9,6 +10,9 @@ import { getServerSession } from "next-auth/next";
 
 // Components
 import PrayerViewTabs from "@/components/prayerView/PrayerViewTabs";
+
+// Enums
+import { PrayerStatus } from "@/enum/Prayers";
 
 type PrayerDayProps = {
   params: { day: string };
@@ -38,19 +42,17 @@ async function getUserPrayersForDay(date: string, email: string) {
 
   const userId = await getUserId(email);
 
-  // create a new prayerDay
-  const newPrayerDay = await prisma.prayerDay.create({
-    data: {
-      date,
-      user: {
-        connect: {
-          id: userId,
-        },
-      },
-    },
-  });
-
-  return newPrayerDay;
+  return {
+    id: "",
+    date: date,
+    userId: userId,
+    fajr: PrayerStatus.NOT_PRAYED as $Enums.PrayerStatus,
+    dhuhr: PrayerStatus.NOT_PRAYED as $Enums.PrayerStatus,
+    asr: PrayerStatus.NOT_PRAYED as $Enums.PrayerStatus,
+    maghrib: PrayerStatus.NOT_PRAYED as $Enums.PrayerStatus,
+    isha: PrayerStatus.NOT_PRAYED as $Enums.PrayerStatus,
+    tahajjud: PrayerStatus.NOT_PRAYED as $Enums.PrayerStatus,
+  };
 }
 
 async function getUserId(email: string) {
