@@ -44,7 +44,7 @@ async function getUserPrayersForDay(date: string, email: string) {
 
   return {
     id: "",
-    date: date,
+    date: new Date(date).toISOString(),
     userId: userId,
     fajr: PrayerStatus.NOT_PRAYED as $Enums.PrayerStatus,
     dhuhr: PrayerStatus.NOT_PRAYED as $Enums.PrayerStatus,

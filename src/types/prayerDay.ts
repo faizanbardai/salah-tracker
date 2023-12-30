@@ -2,7 +2,7 @@ import { $Enums } from "@prisma/client";
 
 export type PrayerDay = {
   id: string;
-  date: Date;
+  date: Date | string;
   userId: string;
   fajr: $Enums.PrayerStatus;
   dhuhr: $Enums.PrayerStatus;
