@@ -1,33 +1,29 @@
 "use client";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Card, CardBody, Spinner } from "@nextui-org/react";
 
-import {
-  getPrayerDisplayName,
-  getPrayerStatus,
-  getPrayers,
-} from "../../../enum/Prayers";
+import { getPrayerDisplayName, getPrayerStatus, getPrayers } from "@/enum/Prayers";
+
 import PrayerStatusButton from "@/components/prayerView/day/PrayerStatusButton";
-import { useState } from "react";
+
 import { PrayerDay } from "@/types/prayerDay";
 
 type PrayerViewDayProps = {
   date: string;
   userPrayerDay: PrayerDay;
 };
-export default function PrayerViewDay({
-  date,
-  userPrayerDay,
-}: PrayerViewDayProps) {
+export default function PrayerViewDay({ date, userPrayerDay }: PrayerViewDayProps) {
+  const [disable, setDisable] = useState(false);
   const prayers = getPrayers();
   return prayers.map((prayer) => (
     <PrayerRow
       key={prayer}
       date={date}
       prayer={prayer}
+      disable={disable}
+      setDisable={setDisable}
       userPrayerStatus={
-        userPrayerDay[
-          prayer as "fajr" | "dhuhr" | "asr" | "maghrib" | "isha" | "tahajjud"
-        ]
+        userPrayerDay[prayer as "fajr" | "dhuhr" | "asr" | "maghrib" | "isha" | "tahajjud"]
       }
     />
   ));
@@ -37,11 +33,14 @@ type PrayerRowProps = {
   date: string;
   prayer: string;
   userPrayerStatus: string;
+  disable: boolean;
+  setDisable: Dispatch<SetStateAction<boolean>>;
 };
 function PrayerRow(props: PrayerRowProps) {
-  const { date, prayer, userPrayerStatus } = props;
+  const { date, prayer, userPrayerStatus, disable, setDisable } = props;
   const [prayerStatus, setPrayerStatus] = useState(userPrayerStatus);
   const [loading, setLoading] = useState(false);
+
   const prayerStatuses = getPrayerStatus();
   return (
     <Card className="mb-2" key={prayer}>
@@ -59,6 +58,8 @@ function PrayerRow(props: PrayerRowProps) {
               setPrayerStatus={setPrayerStatus}
               loading={loading}
               setLoading={setLoading}
+              disable={disable}
+              setDisable={setDisable}
             />
           ))}
         </div>

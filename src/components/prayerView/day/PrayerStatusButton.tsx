@@ -15,28 +15,22 @@ type PrayerStatusButtonProps = {
   setPrayerStatus: Dispatch<SetStateAction<string>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
+  disable: boolean;
+  setDisable: Dispatch<SetStateAction<boolean>>;
 };
 export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
-  const {
-    date,
-    prayer,
-    status,
-    prayerStatus,
-    setPrayerStatus,
-    loading,
-    setLoading,
-  } = props;
+  const { date, prayer, status, prayerStatus, setPrayerStatus } = props;
+  const { loading, setLoading, disable, setDisable } = props;
 
   const icon = PrayerStatusIcon(status, prayerStatus);
   const color = getPrayerStatusColor(status, prayerStatus);
 
-  const variant: ButtonProps["variant"] =
-    prayerStatus === status ? "solid" : "bordered";
+  const variant: ButtonProps["variant"] = prayerStatus === status ? "solid" : "bordered";
 
   function handleClick() {
-    const newStatus =
-      prayerStatus === status ? PrayerStatus.NOT_PRAYED : status;
+    const newStatus = prayerStatus === status ? PrayerStatus.NOT_PRAYED : status;
     setLoading(true);
+    setDisable(true);
     setPrayerStatus(newStatus);
     fetch("/api/prayers", {
       method: "POST",
@@ -44,7 +38,10 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
     })
       .then(() => {})
       .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        setDisable(false);
+      });
   }
 
   return (
@@ -57,7 +54,7 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
       variant={variant}
       className="border-none"
       onClick={handleClick}
-      disabled={loading}
+      disabled={disable || loading}
     >
       {icon}
     </Button>
