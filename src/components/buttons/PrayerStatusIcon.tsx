@@ -4,7 +4,7 @@ import { FaUserClock } from "react-icons/fa";
 import { FaUserShield } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 
-export default function PrayerStatusIcon(status: string, prayerStatus: string) {
+export default function PrayerStatusIcon(status: PrayerStatus, prayerStatus: PrayerStatus) {
   const selectedSize = "22";
   const unselectedSize = "20";
   const size = prayerStatus === status ? selectedSize : unselectedSize;

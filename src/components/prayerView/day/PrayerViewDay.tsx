@@ -1,69 +1,41 @@
 "use client";
-import { Dispatch, SetStateAction, useState } from "react";
-import { Card, CardBody, Spinner } from "@nextui-org/react";
-
-import { getPrayerDisplayName, getPrayerStatus, getPrayers } from "@/enum/Prayers";
-
-import PrayerStatusButton from "@/components/prayerView/day/PrayerStatusButton";
-
+import PrayerRow from "@/components/prayerView/day/PrayerRow";
+import { getPrayers } from "@/enum/Prayers";
 import { PrayerDay } from "@/types/prayerDay";
+import { useState } from "react";
+import useSWR from "swr";
 
 type PrayerViewDayProps = {
   date: string;
-  userPrayerDay: PrayerDay;
 };
-export default function PrayerViewDay({ date, userPrayerDay }: PrayerViewDayProps) {
+export default function PrayerViewDay({ date }: PrayerViewDayProps) {
+  const fetcher = (url: string): Promise<PrayerDay> => fetch(url).then((res) => res.json());
+  const {
+    data: userPrayerDay,
+    error,
+    isLoading,
+    mutate,
+  } = useSWR(`/api/prayers?date=${date}`, fetcher);
+
   const [disable, setDisable] = useState(false);
   const prayers = getPrayers();
-  return prayers.map((prayer) => (
-    <PrayerRow
-      key={prayer}
-      date={date}
-      prayer={prayer}
-      disable={disable}
-      setDisable={setDisable}
-      userPrayerStatus={
-        userPrayerDay[prayer as "fajr" | "dhuhr" | "asr" | "maghrib" | "isha" | "tahajjud"]
-      }
-    />
-  ));
-}
 
-type PrayerRowProps = {
-  date: string;
-  prayer: string;
-  userPrayerStatus: string;
-  disable: boolean;
-  setDisable: Dispatch<SetStateAction<boolean>>;
-};
-function PrayerRow(props: PrayerRowProps) {
-  const { date, prayer, userPrayerStatus, disable, setDisable } = props;
-  const [prayerStatus, setPrayerStatus] = useState(userPrayerStatus);
-  const [loading, setLoading] = useState(false);
+  if (error) return <p>Failed to load</p>;
+  if (isLoading) return <p>Loading...</p>;
+  if (!userPrayerDay) return <p>Failed to load</p>;
+  return prayers.map((prayer) => {
+    const userPrayerStatus = userPrayerDay[prayer];
 
-  const prayerStatuses = getPrayerStatus();
-  return (
-    <Card className="mb-2" key={prayer}>
-      <CardBody>
-        <div className="flex gap-4 items-center">
-          <div className="flex-1">{getPrayerDisplayName(prayer)}</div>
-          {loading && <Spinner color="primary" />}
-          {prayerStatuses.map((status) => (
-            <PrayerStatusButton
-              key={status}
-              date={date}
-              status={status}
-              prayer={prayer}
-              prayerStatus={prayerStatus}
-              setPrayerStatus={setPrayerStatus}
-              loading={loading}
-              setLoading={setLoading}
-              disable={disable}
-              setDisable={setDisable}
-            />
-          ))}
-        </div>
-      </CardBody>
-    </Card>
-  );
+    return (
+      <PrayerRow
+        key={prayer}
+        date={date}
+        prayer={prayer}
+        disable={disable}
+        setDisable={setDisable}
+        userPrayerStatus={userPrayerStatus}
+        mutate={mutate}
+      />
+    );
+  });
 }

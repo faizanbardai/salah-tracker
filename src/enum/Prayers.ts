@@ -1,47 +1,40 @@
-const Prayers = {
-  fajr: "fajr",
-  dhuhr: "dhuhr",
-  asr: "asr",
-  maghrib: "maghrib",
-  isha: "isha",
-};
+enum Prayer {
+  fajr = "fajr",
+  dhuhr = "dhuhr",
+  asr = "asr",
+  maghrib = "maghrib",
+  isha = "isha",
+  tahajjud = "tahajjud",
+}
 
-const PrayerStatus = {
-  NOT_PRAYED: "NOT_PRAYED",
-  PRAYED_QADA: "PRAYED_QADA",
-  PRAYED_ON_TIME: "PRAYED_ON_TIME",
-  PRAYED_WITH_JAMAAT: "PRAYED_WITH_JAMAAT",
-};
+enum PrayerStatus {
+  NOT_PRAYED = "NOT_PRAYED",
+  PRAYED_QADA = "PRAYED_QADA",
+  PRAYED_ON_TIME = "PRAYED_ON_TIME",
+  PRAYED_WITH_JAMAAT = "PRAYED_WITH_JAMAAT",
+}
 
 const getPrayers = () => {
-  return Object.values(Prayers);
+  return [Prayer.fajr, Prayer.dhuhr, Prayer.asr, Prayer.maghrib, Prayer.isha];
 };
 
 const getPrayerDisplayName = (prayer: string) => {
   switch (prayer) {
-    case Prayers.fajr:
+    case Prayer.fajr:
       return "Fajr";
-    case Prayers.dhuhr:
+    case Prayer.dhuhr:
       return "Dhuhr";
-    case Prayers.asr:
+    case Prayer.asr:
       return "Asr";
-    case Prayers.maghrib:
+    case Prayer.maghrib:
       return "Maghrib";
-    case Prayers.isha:
+    case Prayer.isha:
       return "Isha";
   }
 };
 
 const getPrayerStatus = () => {
-  return Object.values(PrayerStatus).filter(
-    (x) => x !== PrayerStatus.NOT_PRAYED
-  );
+  return [PrayerStatus.PRAYED_QADA, PrayerStatus.PRAYED_ON_TIME, PrayerStatus.PRAYED_WITH_JAMAAT];
 };
 
-export {
-  Prayers,
-  getPrayers,
-  PrayerStatus,
-  getPrayerStatus,
-  getPrayerDisplayName,
-};
+export { Prayer, getPrayers, PrayerStatus, getPrayerStatus, getPrayerDisplayName };

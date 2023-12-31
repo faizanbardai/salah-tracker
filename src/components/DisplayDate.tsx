@@ -1,56 +1,42 @@
 "use client";
 const moment = require("moment-hijri");
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 
-export default function DisplayDate({ date }: { date: string }) {
-  const router = useRouter();
-
-  const [year, month, day] = date.split("-");
-  const dateToUse = new Date(
-    parseInt(year),
-    parseInt(month) - 1,
-    parseInt(day)
-  );
-
-  const gregorianDate = dateToUse.toLocaleDateString("en-US", {
+type DisplayDateProps = {
+  date: string;
+  setDate: Dispatch<SetStateAction<string>>;
+};
+export default function DisplayDate({ date, setDate }: DisplayDateProps) {
+  const gregorianDate = new Date(date).toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
-  const hijriDate = moment(dateToUse).format("iYYYY iMMMM iDD");
+  const hijriDate = moment(date).format("iYYYY iMMMM iDD");
 
-  const [dateToDisplay, setDateToDisplay] = useState(gregorianDate);
-
-  function handleClick() {
-    if (dateToDisplay === gregorianDate) {
-      setDateToDisplay(hijriDate);
-    } else {
-      setDateToDisplay(gregorianDate);
-    }
-  }
+  const [showHijriDate, setShowHijriDate] = useState(
+    localStorage.getItem("showHijriDate") === "true"
+  );
 
   function redirectToYesterday() {
-    const yesterday = new Date(dateToUse);
+    const yesterday = new Date(date);
     yesterday.setDate(yesterday.getDate() - 1);
-    redirectToDate(yesterday);
+    setDate(yesterday.toISOString().slice(0, 10));
   }
 
   function redirectToTomorrow() {
-    const tomorrow = new Date(dateToUse);
+    const tomorrow = new Date(date);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    redirectToDate(tomorrow);
+    setDate(tomorrow.toISOString().slice(0, 10));
   }
 
-  function redirectToDate(date: Date) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    router.push(`/prayer/${year}-${month}-${day}`);
+  function handleClick() {
+    setShowHijriDate(!showHijriDate);
+    localStorage.setItem("showHijriDate", String(!showHijriDate));
   }
 
   return (
@@ -65,7 +51,7 @@ export default function DisplayDate({ date }: { date: string }) {
         className="flex-auto mx-2"
         onClick={handleClick}
       >
-        {dateToDisplay}
+        {showHijriDate ? hijriDate : gregorianDate}
       </Button>
       <Button isIconOnly color="success">
         <MdOutlineNavigateNext size="25" onClick={redirectToTomorrow} />
