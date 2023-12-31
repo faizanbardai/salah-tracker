@@ -1,12 +1,13 @@
-"use client";
-import redirectToCurrentPrayerDay from "@/utils/redirectToCurrentPrayerDay";
-import { useSession } from "next-auth/react";
+import { authOptions } from "@/service/auth/authOptions";
+import { getServerSession } from "next-auth/next";
+import PrayerViewTabs from "@/components/prayerView/PrayerViewTabs";
 
-export default function Home() {
-  const { data: session } = useSession();
-  if (session?.user) {
-    redirectToCurrentPrayerDay();
-  } else {
-    return <main className="container mx-auto"></main>;
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.email) {
+    return <main className="container mx-auto">Please Login</main>;
   }
+
+  return <PrayerViewTabs />;
 }
