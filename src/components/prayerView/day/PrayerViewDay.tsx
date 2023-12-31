@@ -2,7 +2,6 @@ import PrayerDayViewSkeleton from "@/components/prayerView/day/PrayerDayViewSkel
 import PrayerRow from "@/components/prayerView/day/PrayerRow";
 import { getPrayers } from "@/enum/Prayers";
 import { PrayerDay } from "@/types/prayerDay";
-import { Card, CardBody, Skeleton, Spinner } from "@nextui-org/react";
 import useSWR from "swr";
 
 type PrayerViewDayProps = {
