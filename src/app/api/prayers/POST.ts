@@ -19,25 +19,16 @@ export default async function POST(req: NextRequest) {
     },
   });
 
-  if (existingRecord) {
-    const updatedRecord = await prisma.prayerDay.update({
-      where: {
-        id: existingRecord.id,
-      },
-      data: {
-        [prayer]: status,
-      },
-    });
-    return NextResponse.json(updatedRecord);
+  if (!existingRecord) {
+    return NextResponse.error();
   }
-
-  const newRecord = await prisma.prayerDay.create({
+  const updatedRecord = await prisma.prayerDay.update({
+    where: {
+      id: existingRecord.id,
+    },
     data: {
-      date: dateTime,
-      user: { connect: { email: session.user.email } },
       [prayer]: status,
     },
   });
-
-  return NextResponse.json(newRecord);
+  return NextResponse.json(updatedRecord);
 }

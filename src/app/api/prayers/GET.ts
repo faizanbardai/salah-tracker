@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/service/auth/authOptions";
 import { getServerSession } from "next-auth/next";
-import { PrayerStatus } from "@prisma/client";
 
 export default async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
@@ -31,27 +30,23 @@ async function getUserId(email: string) {
 }
 
 async function getUserPrayersForDay(date: string, email: string) {
+  const dateTime = new Date(date).toISOString();
   const existingPrayersForDay = await prisma.prayerDay.findFirst({
     where: {
-      user: {
-        email,
-      },
-      date: new Date(date).toISOString(),
+      user: { email },
+      date: dateTime,
     },
   });
   if (existingPrayersForDay) return existingPrayersForDay;
 
   const userId = await getUserId(email);
 
-  return {
-    id: "",
-    date: new Date(date).toISOString(),
-    userId: userId,
-    fajr: PrayerStatus.NOT_PRAYED,
-    dhuhr: PrayerStatus.NOT_PRAYED,
-    asr: PrayerStatus.NOT_PRAYED,
-    maghrib: PrayerStatus.NOT_PRAYED,
-    isha: PrayerStatus.NOT_PRAYED,
-    tahajjud: PrayerStatus.NOT_PRAYED,
-  };
+  const newRecord = await prisma.prayerDay.create({
+    data: {
+      date: dateTime,
+      user: { connect: { id: userId } },
+    },
+  });
+
+  return newRecord;
 }

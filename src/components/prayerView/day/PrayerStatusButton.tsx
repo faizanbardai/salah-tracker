@@ -6,7 +6,7 @@ import { Button, ButtonProps } from "@nextui-org/react";
 import PrayerStatusIcon from "@/components/buttons/PrayerStatusIcon";
 import getPrayerStatusColor from "@/utils/getPrayerStatusColor";
 import { Prayer, PrayerStatus } from "@/enum/Prayers";
-import { KeyedMutator, useSWRConfig } from "swr";
+import { KeyedMutator } from "swr";
 import { PrayerDay } from "@/types/prayerDay";
 
 type PrayerStatusButtonProps = {
@@ -16,15 +16,11 @@ type PrayerStatusButtonProps = {
   prayerStatus: PrayerStatus;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  disable: boolean;
-  setDisable: Dispatch<SetStateAction<boolean>>;
   mutate: KeyedMutator<PrayerDay>;
 };
 export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
-  // const { mutate } = useSWRConfig();
-
   const { date, prayer, status, prayerStatus, mutate } = props;
-  const { loading, setLoading, disable, setDisable } = props;
+  const { loading, setLoading } = props;
 
   const icon = PrayerStatusIcon(status, prayerStatus);
   const color = getPrayerStatusColor(status, prayerStatus);
@@ -34,7 +30,6 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
   function handleClick() {
     const newStatus = prayerStatus === status ? PrayerStatus.NOT_PRAYED : status;
     setLoading(true);
-    setDisable(true);
 
     fetch("/api/prayers", {
       method: "POST",
@@ -51,7 +46,6 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
       .catch((err) => console.error(err))
       .finally(() => {
         setLoading(false);
-        setDisable(false);
       });
   }
 
@@ -65,7 +59,7 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
       variant={variant}
       className="border-none"
       onClick={handleClick}
-      disabled={disable || loading}
+      disabled={loading}
     >
       {icon}
     </Button>

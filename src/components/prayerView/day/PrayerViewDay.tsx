@@ -17,7 +17,6 @@ export default function PrayerViewDay({ date }: PrayerViewDayProps) {
     mutate,
   } = useSWR(`/api/prayers?date=${date}`, fetcher);
 
-  const [disable, setDisable] = useState(false);
   const prayers = getPrayers();
 
   if (error) return <p>Failed to load</p>;
@@ -31,8 +30,6 @@ export default function PrayerViewDay({ date }: PrayerViewDayProps) {
         key={prayer}
         date={date}
         prayer={prayer}
-        disable={disable}
-        setDisable={setDisable}
         userPrayerStatus={userPrayerStatus}
         mutate={mutate}
       />
