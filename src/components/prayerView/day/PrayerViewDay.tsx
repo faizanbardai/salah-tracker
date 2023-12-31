@@ -1,8 +1,8 @@
-"use client";
+import PrayerDayViewSkeleton from "@/components/prayerView/day/PrayerDayViewSkeleton";
 import PrayerRow from "@/components/prayerView/day/PrayerRow";
 import { getPrayers } from "@/enum/Prayers";
 import { PrayerDay } from "@/types/prayerDay";
-import { useState } from "react";
+import { Card, CardBody, Skeleton, Spinner } from "@nextui-org/react";
 import useSWR from "swr";
 
 type PrayerViewDayProps = {
@@ -10,20 +10,15 @@ type PrayerViewDayProps = {
 };
 export default function PrayerViewDay({ date }: PrayerViewDayProps) {
   const fetcher = (url: string): Promise<PrayerDay> => fetch(url).then((res) => res.json());
-  const {
-    data: userPrayerDay,
-    error,
-    isLoading,
-    mutate,
-  } = useSWR(`/api/prayers?date=${date}`, fetcher);
+  const { data, error, isLoading, mutate } = useSWR(`/api/prayers?date=${date}`, fetcher);
 
   const prayers = getPrayers();
 
   if (error) return <p>Failed to load</p>;
-  if (isLoading) return <p>Loading...</p>;
-  if (!userPrayerDay) return <p>Failed to load</p>;
+  if (isLoading) return <PrayerDayViewSkeleton />;
+  if (!data) return <p>Failed to load</p>;
   return prayers.map((prayer) => {
-    const userPrayerStatus = userPrayerDay[prayer];
+    const userPrayerStatus = data[prayer];
 
     return (
       <PrayerRow
