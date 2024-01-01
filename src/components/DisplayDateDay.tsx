@@ -8,7 +8,7 @@ type DisplayDateProps = {
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
 };
-export default function DisplayDate({ date, setDate }: DisplayDateProps) {
+export default function DisplayDateDay({ date, setDate }: DisplayDateProps) {
   const gregorianDate = new Date(date).toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
