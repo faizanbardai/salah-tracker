@@ -31,7 +31,7 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
     const newStatus = prayerStatus === status ? PrayerStatus.NOT_PRAYED : status;
     setLoading(true);
 
-    fetch("/api/prayers", {
+    fetch("/api/dayPrayers", {
       method: "POST",
       body: JSON.stringify({
         status: newStatus,
@@ -52,7 +52,7 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
   return (
     <Button
       isIconOnly
-      size="md"
+      size="sm"
       aria-label="prayed qada"
       radius="full"
       color={color}
