@@ -1,13 +1,10 @@
 "use client";
-import { Dispatch, SetStateAction } from "react";
-
-import { Button, ButtonProps } from "@nextui-org/react";
-
 import PrayerStatusIcon from "@/components/buttons/PrayerStatusIcon";
-import getPrayerStatusColor from "@/utils/getPrayerStatusColor";
 import { Prayer, PrayerStatus } from "@/enum/Prayers";
-import { KeyedMutator } from "swr";
 import { PrayerDay } from "@/types/prayerDay";
+import { Button } from "@nextui-org/react";
+import { Dispatch, SetStateAction } from "react";
+import { KeyedMutator } from "swr";
 
 type PrayerStatusButtonProps = {
   date: string;
@@ -23,9 +20,6 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
   const { loading, setLoading } = props;
 
   const icon = PrayerStatusIcon(status, prayerStatus === status);
-  const color = getPrayerStatusColor(status, prayerStatus === status);
-
-  const variant: ButtonProps["variant"] = prayerStatus === status ? "solid" : "bordered";
 
   function handleClick() {
     const newStatus = prayerStatus === status ? PrayerStatus.NOT_PRAYED : status;
@@ -52,11 +46,10 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
   return (
     <Button
       isIconOnly
-      size="sm"
-      aria-label="prayed qada"
+      size="md"
+      aria-label="prayer status icon"
       radius="full"
-      color={color}
-      variant={variant}
+      variant="bordered"
       className="border-none"
       onClick={handleClick}
       disabled={loading}

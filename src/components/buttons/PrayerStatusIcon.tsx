@@ -1,27 +1,39 @@
 import { PrayerStatus } from "@/enum/Prayers";
-import { GoAlertFill } from "react-icons/go";
-import { FaUserClock } from "react-icons/fa";
-import { FaUserShield } from "react-icons/fa";
+import { IconContext } from "react-icons";
+import { FaUserClock, FaUserShield } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 
 export default function PrayerStatusIcon(status: PrayerStatus, selected: boolean) {
-  const selectedSize = "18";
-  const unselectedSize = "16";
-  const size = selected ? selectedSize : unselectedSize;
-  let icon = <GoAlertFill size={unselectedSize} />;
+  const selectedSize = "26";
+  const unselectedSize = "24";
+  const defaultColor = "gray";
+
+  let icon = <div></div>;
+  let color;
   switch (status) {
-    case PrayerStatus.NOT_PRAYED:
-      icon = <GoAlertFill size={size} />;
-      break;
     case PrayerStatus.PRAYED_QADA:
-      icon = <FaUserClock size={size} />;
+      icon = <FaUserClock />;
+      color = "yellow";
       break;
     case PrayerStatus.PRAYED_ON_TIME:
-      icon = <FaUserShield size={size} />;
+      icon = <FaUserShield />;
+      color = "blue";
       break;
     case PrayerStatus.PRAYED_WITH_JAMAAT:
-      icon = <FaUsers size={size} />;
+      icon = <FaUsers />;
+      color = "green";
       break;
   }
-  return icon;
+  const size = selected ? selectedSize : unselectedSize;
+  color = selected ? color : defaultColor;
+  return (
+    <IconContext.Provider
+      value={{
+        color: color,
+        size: size,
+      }}
+    >
+      {icon}
+    </IconContext.Provider>
+  );
 }

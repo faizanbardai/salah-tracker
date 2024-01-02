@@ -1,7 +1,6 @@
 import PrayerStatusIcon from "@/components/buttons/PrayerStatusIcon";
-import { Prayer, PrayerStatus, getPrayerDisplayName } from "@/enum/Prayers";
+import { Prayer, getPrayerDisplayName } from "@/enum/Prayers";
 import { PrayerDay } from "@/types/prayerDay";
-import getPrayerStatusColor from "@/utils/getPrayerStatusColor";
 import { Button, Card, CardBody } from "@nextui-org/react";
 import { Dispatch, SetStateAction } from "react";
 
@@ -28,16 +27,15 @@ export default function PrayerWeekRow({
           <div className="flex-1">{getPrayerDisplayName(prayer)}</div>
           {weekPrayers.map((weekPrayer) => {
             const icon = PrayerStatusIcon(weekPrayer[prayer], true);
-            const color = getPrayerStatusColor(weekPrayer[prayer], true);
 
             return (
               <Button
                 key={weekPrayer.id}
                 isIconOnly
                 size="sm"
-                aria-label="prayed qada"
+                aria-label="prayed status icon"
                 radius="full"
-                color={color}
+                variant="bordered"
                 className="border-none"
                 onClick={() => handleClick(weekPrayer.date as string)}
               >
