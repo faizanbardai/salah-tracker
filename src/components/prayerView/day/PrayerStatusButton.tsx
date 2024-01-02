@@ -22,8 +22,8 @@ export default function PrayerStatusButton(props: PrayerStatusButtonProps) {
   const { date, prayer, status, prayerStatus, mutate } = props;
   const { loading, setLoading } = props;
 
-  const icon = PrayerStatusIcon(status, prayerStatus);
-  const color = getPrayerStatusColor(status, prayerStatus);
+  const icon = PrayerStatusIcon(status, prayerStatus === status);
+  const color = getPrayerStatusColor(status, prayerStatus === status);
 
   const variant: ButtonProps["variant"] = prayerStatus === status ? "solid" : "bordered";
 

@@ -1,10 +1,7 @@
 import { PrayerStatus } from "@/enum/Prayers";
 import { ButtonProps } from "@nextui-org/react";
 
-export default function getPrayerStatusColor(
-  status: string,
-  prayerStatus: string
-) {
+export default function getPrayerStatusColor(status: string, selected: boolean) {
   let color: ButtonProps["color"];
   switch (status) {
     case PrayerStatus.NOT_PRAYED:
@@ -21,6 +18,6 @@ export default function getPrayerStatusColor(
       break;
   }
 
-  color = prayerStatus === status ? color : "default";
+  color = selected ? color : "default";
   return color;
 }

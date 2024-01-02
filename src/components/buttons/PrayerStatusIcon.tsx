@@ -4,10 +4,10 @@ import { FaUserClock } from "react-icons/fa";
 import { FaUserShield } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 
-export default function PrayerStatusIcon(status: PrayerStatus, prayerStatus: PrayerStatus) {
+export default function PrayerStatusIcon(status: PrayerStatus, selected: boolean) {
   const selectedSize = "18";
   const unselectedSize = "16";
-  const size = prayerStatus === status ? selectedSize : unselectedSize;
+  const size = selected ? selectedSize : unselectedSize;
   let icon = <GoAlertFill size={unselectedSize} />;
   switch (status) {
     case PrayerStatus.NOT_PRAYED:

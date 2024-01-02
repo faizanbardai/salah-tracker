@@ -27,8 +27,8 @@ export default function PrayerWeekRow({
         <div className="flex gap-1 items-center">
           <div className="flex-1">{getPrayerDisplayName(prayer)}</div>
           {weekPrayers.map((weekPrayer) => {
-            const icon = PrayerStatusIcon(weekPrayer[prayer], PrayerStatus.NOT_PRAYED);
-            const color = getPrayerStatusColor(weekPrayer[prayer], weekPrayer[prayer]);
+            const icon = PrayerStatusIcon(weekPrayer[prayer], true);
+            const color = getPrayerStatusColor(weekPrayer[prayer], true);
 
             return (
               <Button
