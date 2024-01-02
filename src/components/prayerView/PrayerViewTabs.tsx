@@ -3,7 +3,6 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import PrayerViewDay from "./day/PrayerViewDay";
 import DisplayDateDay from "@/components/DisplayDateDay";
 import { useState } from "react";
-import { DisplayDateWeek } from "@/components/prayerView/week/DisplayDateWeek";
 import PrayerViewWeek from "@/components/prayerView/week/PrayerViewWeek";
 
 export default function PrayerViewTabs() {
