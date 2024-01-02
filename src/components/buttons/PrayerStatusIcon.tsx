@@ -13,15 +13,15 @@ export default function PrayerStatusIcon(status: PrayerStatus, selected: boolean
   switch (status) {
     case PrayerStatus.PRAYED_QADA:
       icon = <FaUserClock />;
-      color = "yellow";
+      color = "#eab308";
       break;
     case PrayerStatus.PRAYED_ON_TIME:
       icon = <FaUserShield />;
-      color = "blue";
+      color = "#3b82f6";
       break;
     case PrayerStatus.PRAYED_WITH_JAMAAT:
       icon = <FaUsers />;
-      color = "green";
+      color = "#22c55e";
       break;
   }
   const size = selected ? selectedSize : unselectedSize;
