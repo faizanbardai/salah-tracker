@@ -1,6 +1,8 @@
 {
   "name": "Salah Tracker",
   "short_name": "Installable",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

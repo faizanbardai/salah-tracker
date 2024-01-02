@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "Salah Tracker",
   description: "Track your salah",
   manifest: "/manifest.json",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
