@@ -1,0 +1,15 @@
+{
+  "name": "Salah Tracker",
+  "short_name": "Installable",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "description": "Salah Tracker",
+  "icons": [
+    {
+      "src": "./next.svg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
