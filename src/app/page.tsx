@@ -5,9 +5,9 @@ import PrayerViewTabs from "@/components/prayerView/PrayerViewTabs";
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  if (!session?.user?.email) {
-    return <main className="container mx-auto">Please Login</main>;
-  }
-
-  return <PrayerViewTabs />;
+  return (
+    <main className="container mx-auto">
+      {session?.user?.email ? <PrayerViewTabs /> : "Please Login"}
+    </main>
+  );
 }
