@@ -1,9 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/service/auth/authOptions";
 import { getServerSession } from "next-auth/next";
-import { getUserId } from "@/utils/getUserId";
-import { PrayerStatus } from "@/enum/Prayers";
-import { getUserPrayersForWeek } from "../../../utils/getUserPrayersForWeek";
+import { getUserPrayers } from "@/utils/getUserPrayers";
 
 export default async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
@@ -19,7 +17,7 @@ export default async function GET(req: NextRequest) {
     return NextResponse.error();
   }
 
-  const userPrayerWeek = await getUserPrayersForWeek(start, end, session.user.email);
+  const userPrayers = await getUserPrayers(start, end, session.user.email);
 
-  return NextResponse.json(userPrayerWeek);
+  return NextResponse.json(userPrayers);
 }

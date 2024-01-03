@@ -16,7 +16,7 @@ type PrayerViewWeekProps = {
 export default function PrayerViewWeek({ date, setDate, setSelected }: PrayerViewWeekProps) {
   const [start, end] = getStartAndEndOfWeek(date);
   const fetcher = (url: string): Promise<PrayerDay[]> => fetch(url).then((res) => res.json());
-  const url = `/api/weekPrayers?start=${start}&end=${end}`;
+  const url = `/api/prayers?start=${start}&end=${end}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
   const prayers = getPrayers();
 

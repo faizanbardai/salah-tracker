@@ -4,11 +4,12 @@ import PrayerViewDay from "./day/PrayerViewDay";
 import DisplayDateDay from "@/components/DisplayDateDay";
 import { useState } from "react";
 import PrayerViewWeek from "@/components/prayerView/week/PrayerViewWeek";
+import PrayerViewMonth from "@/components/prayerView/month/PrayerViewMonth";
 
 export default function PrayerViewTabs() {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
 
-  const [selected, setSelected] = useState("Week");
+  const [selected, setSelected] = useState("Day");
 
   return (
     <div className="flex w-full flex-col px-2">
@@ -27,12 +28,7 @@ export default function PrayerViewTabs() {
           <PrayerViewWeek date={date} setDate={setDate} setSelected={setSelected} />
         </Tab>
         <Tab key="Month" title="Month">
-          <Card>
-            <CardBody>
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </CardBody>
-          </Card>
+          <PrayerViewMonth date={date} setDate={setDate} setSelected={setSelected} />
         </Tab>
       </Tabs>
     </div>
