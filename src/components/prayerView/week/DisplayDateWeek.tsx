@@ -1,7 +1,6 @@
 "use client";
 const moment = require("moment-hijri");
 import { Dispatch, SetStateAction, useState } from "react";
-import { getStartAndEndOfWeek } from "@/utils/getStartAndEndOfWeek";
 import { Button } from "@nextui-org/react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 

@@ -1,4 +1,3 @@
-"use client";
 export function getStartAndEndOfWeek(date: string) {
   const day = new Date(date).getDay();
   const diff = new Date(date).getDate() - day + (day === 0 ? -6 : 1);
