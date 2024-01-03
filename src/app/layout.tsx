@@ -11,8 +11,8 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Salah Tracker",
   description: "Track your salah",
-  // https://uxwing.com/secure-date-calendar-icon/
   manifest: "/manifest.json",
+  // https://uxwing.com/secure-date-calendar-icon/
   icons: "/secure-date-calendar-icon.png",
 };
 
