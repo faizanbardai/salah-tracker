@@ -1,3 +1,4 @@
+"use client";
 const moment = require("moment-hijri");
 import { Button } from "@nextui-org/react";
 import { Dispatch, SetStateAction, useState } from "react";
