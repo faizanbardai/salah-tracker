@@ -10,7 +10,7 @@ type PrayerViewDayProps = {
 export default function PrayerViewDay({ date }: PrayerViewDayProps) {
   const fetcher = (url: string): Promise<PrayerDay> => fetch(url).then((res) => res.json());
   const url = `/api/dayPrayers?date=${date}`;
-  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher, { revalidateOnFocus: false });
 
   const prayers = getPrayers();
 
