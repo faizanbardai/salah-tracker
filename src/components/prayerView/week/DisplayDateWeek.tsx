@@ -3,14 +3,14 @@ const moment = require("moment-hijri");
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
+import { getStartAndEndOfWeek } from "@/utils/getStartAndEndOfWeek";
 
 type DisplayDateWeekProps = {
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
-  start: string;
-  end: string;
 };
-export const DisplayDateWeek = ({ start, end, date, setDate }: DisplayDateWeekProps) => {
+export const DisplayDateWeek = ({ date, setDate }: DisplayDateWeekProps) => {
+  const [start, end] = getStartAndEndOfWeek(date);
   const [showHijriDate, setShowHijriDate] = useState(false);
 
   useEffect(() => {

@@ -7,7 +7,7 @@ export default async function Home() {
 
   return (
     <main className="container mx-auto">
-      {session?.user?.email ? <PrayerViewTabs /> : "Please Login"}
+      {session?.user?.email ? <PrayerViewTabs /> : <div></div>}
     </main>
   );
 }

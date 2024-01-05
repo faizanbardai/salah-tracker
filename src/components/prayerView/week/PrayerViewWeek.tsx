@@ -1,5 +1,4 @@
 import PrayerDayViewSkeleton from "@/components/prayerView/day/PrayerDayViewSkeleton";
-import { DisplayDateWeek } from "@/components/prayerView/week/DisplayDateWeek";
 import PrayerWeekRow from "@/components/prayerView/week/PrayerWeekRow";
 import WeekDays from "@/components/prayerView/week/WeekDays";
 import { getPrayers } from "@/enum/Prayers";
@@ -25,7 +24,6 @@ export default function PrayerViewWeek({ date, setDate, setSelected }: PrayerVie
   if (!data) return <p>Failed to load</p>;
   return (
     <>
-      <DisplayDateWeek date={date} setDate={setDate} start={start} end={end} />
       <WeekDays weekPrayers={data} />
       {prayers.map((prayer) => (
         <PrayerWeekRow

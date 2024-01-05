@@ -5,6 +5,7 @@ import DisplayDateDay from "@/components/DisplayDateDay";
 import { useState } from "react";
 import PrayerViewWeek from "@/components/prayerView/week/PrayerViewWeek";
 import PrayerViewMonth from "@/components/prayerView/month/PrayerViewMonth";
+import { DisplayDateWeek } from "@/components/prayerView/week/DisplayDateWeek";
 
 export default function PrayerViewTabs() {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
@@ -25,6 +26,7 @@ export default function PrayerViewTabs() {
           <PrayerViewDay date={date} />
         </Tab>
         <Tab key="Week" title="Week">
+          <DisplayDateWeek date={date} setDate={setDate} />
           <PrayerViewWeek date={date} setDate={setDate} setSelected={setSelected} />
         </Tab>
         <Tab key="Month" title="Month">
