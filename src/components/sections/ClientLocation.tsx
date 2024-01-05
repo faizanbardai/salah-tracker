@@ -1,8 +1,8 @@
 import useSWR from "swr";
 
 type ClientLocationProps = {
-  ip_address: string | null;
-  user_agent: string | null;
+  lat: number | null;
+  lon: number | null;
 };
 
 export default function ClientLocation() {
@@ -13,5 +13,9 @@ export default function ClientLocation() {
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>Failed to load</div>;
-  return <div>{data.ip_address}</div>;
+  return (
+    <div>
+      lat: {data.lat}, lon: {data.lon}
+    </div>
+  );
 }

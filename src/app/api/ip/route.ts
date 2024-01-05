@@ -4,11 +4,8 @@ import { headers } from "next/headers";
 /** @param {NextRequest} req */
 export async function GET(req: NextRequest) {
   const headersList = headers();
-
-  const data = {
-    ip_address: headersList.get("x-forwarded-for"),
-    user_agent: headersList.get("user-agent"),
-  };
-
+  const ip_address = headersList.get("x-forwarded-for");
+  const res = await fetch(`http://ip-api.com/json/${ip_address}`);
+  const data = await res.json();
   return NextResponse.json(data);
 }
