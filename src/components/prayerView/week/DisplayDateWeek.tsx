@@ -1,6 +1,6 @@
 "use client";
 const moment = require("moment-hijri");
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 
@@ -11,9 +11,11 @@ type DisplayDateWeekProps = {
   end: string;
 };
 export const DisplayDateWeek = ({ start, end, date, setDate }: DisplayDateWeekProps) => {
-  const [showHijriDate, setShowHijriDate] = useState(
-    localStorage.getItem("showHijriDate") === "true"
-  );
+  const [showHijriDate, setShowHijriDate] = useState(false);
+
+  useEffect(() => {
+    setShowHijriDate(localStorage.getItem("showHijriDate") === "true");
+  }, []);
 
   const gregorianDateOptions: Intl.DateTimeFormatOptions = {
     weekday: "short",
