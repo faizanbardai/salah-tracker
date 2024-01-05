@@ -1,11 +1,11 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
 }
 
 model User {
@@ -25,6 +25,8 @@ model PrayerDay {
   isha     PrayerStatus @default(NOT_PRAYED)
   tahajjud PrayerStatus @default(NOT_PRAYED)
   user     User         @relation(fields: [userId], references: [id])
+
+  @@index([userId])
 }
 
 enum PrayerStatus {
