@@ -1,11 +1,12 @@
 "use client";
-import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
-import PrayerViewDay from "./day/PrayerViewDay";
 import DisplayDateDay from "@/components/DisplayDateDay";
-import { useState } from "react";
-import PrayerViewWeek from "@/components/prayerView/week/PrayerViewWeek";
+import DisplayDateMonth from "@/components/prayerView/month/DisplayDateMonth";
 import PrayerViewMonth from "@/components/prayerView/month/PrayerViewMonth";
 import { DisplayDateWeek } from "@/components/prayerView/week/DisplayDateWeek";
+import PrayerViewWeek from "@/components/prayerView/week/PrayerViewWeek";
+import { Tab, Tabs } from "@nextui-org/react";
+import { useState } from "react";
+import PrayerViewDay from "./day/PrayerViewDay";
 
 export default function PrayerViewTabs() {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
@@ -30,6 +31,7 @@ export default function PrayerViewTabs() {
           <PrayerViewWeek date={date} setDate={setDate} setSelected={setSelected} />
         </Tab>
         <Tab key="Month" title="Month">
+          <DisplayDateMonth date={date} setDate={setDate} />
           <PrayerViewMonth date={date} setDate={setDate} setSelected={setSelected} />
         </Tab>
       </Tabs>
