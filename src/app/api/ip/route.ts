@@ -6,11 +6,14 @@ export async function GET(req: NextRequest) {
   try {
     const headersList = headers();
     const ip_address = headersList.get("x-forwarded-for");
-    console.log(headersList);
+    console.log(ip_address);
     const ip_address_hard_coded = "89.247.230.234";
-    const locationAPI = await fetch(`http://ip-api.com/json/${ip_address_hard_coded}`, {
-      referrerPolicy: "unsafe-url",
-    });
+    const locationAPI = await fetch(
+      `http://ip-api.com/json/${ip_address || ip_address_hard_coded}`,
+      {
+        referrerPolicy: "unsafe-url",
+      }
+    );
     const locationData = await locationAPI.json();
 
     // https://api.aladhan.com/v1/timings/05-01-2024?latitude=48.1663&longitude=11.5683
