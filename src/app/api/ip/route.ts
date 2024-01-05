@@ -21,6 +21,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(timings);
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ Fajr: "", Dhuhr: "" });
   }
 }
