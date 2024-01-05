@@ -5,9 +5,12 @@ import { headers } from "next/headers";
 export async function GET(req: NextRequest) {
   try {
     const headersList = headers();
-    // const ip_address = headersList.get("x-forwarded-for");
-    const ip_address = "89.247.230.234";
-    const locationAPI = await fetch(`http://ip-api.com/json/${ip_address}`);
+    const ip_address = headersList.get("x-forwarded-for");
+    console.log(headersList);
+    const ip_address_hard_coded = "89.247.230.234";
+    const locationAPI = await fetch(`http://ip-api.com/json/${ip_address_hard_coded}`, {
+      referrerPolicy: "unsafe-url",
+    });
     const locationData = await locationAPI.json();
 
     // https://api.aladhan.com/v1/timings/05-01-2024?latitude=48.1663&longitude=11.5683
@@ -22,7 +25,6 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(timings);
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({ Fajr: "", Dhuhr: "" });
+    return NextResponse.json({ Fajr: "", Dhuhr: "", message: error });
   }
 }

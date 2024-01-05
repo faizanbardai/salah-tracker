@@ -7,6 +7,7 @@ export default function ClientLocation() {
   if (error) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>Failed to load</div>;
+  console.log({ data, str: JSON.stringify(data) });
   return (
     <div>
       Fajr: {data.Fajr}, Dhuhr: {data.Dhuhr}
