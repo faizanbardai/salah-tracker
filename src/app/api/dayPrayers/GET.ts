@@ -1,7 +1,7 @@
-import { type NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/service/auth/authOptions";
-import { getServerSession } from "next-auth/next";
 import { getUserPrayersForDay } from "@/utils/getUserPrayersForDay";
+import { getServerSession } from "next-auth/next";
+import { NextResponse, type NextRequest } from "next/server";
 
 export default async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
@@ -17,6 +17,8 @@ export default async function GET(req: NextRequest) {
   }
 
   const userPrayerDay = await getUserPrayersForDay(date, session.user.email);
+
+  console.log({ geo: req.geo });
 
   return NextResponse.json(userPrayerDay);
 }
