@@ -18,7 +18,5 @@ export default async function GET(req: NextRequest) {
 
   const userPrayerDay = await getUserPrayersForDay(date, session.user.email);
 
-  console.log({ geo: req.geo });
-
   return NextResponse.json(userPrayerDay);
 }
