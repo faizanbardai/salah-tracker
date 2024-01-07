@@ -1,5 +1,5 @@
 import { PrayerStatus } from "@/enum/Prayers";
-import { PrayerDay } from "@prisma/client";
+import { PrayerDay } from "@/types/prayerDay";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 import { IconContext } from "react-icons";
