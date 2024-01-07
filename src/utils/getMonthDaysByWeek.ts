@@ -1,10 +1,20 @@
 import dayjs from "dayjs";
 
-export default function getMonthDaysByWeek(date: string) {
-  const newDate = dayjs(date);
-  let firstOfMonth = newDate.startOf("month").day(0).add(1, "day");
+// 0: Sunday, 1: Monday, 2: Tuesday, 3: Wednesday, 4: Thursday, 5: Friday, 6: Saturday
 
-  const lastOfMonth = newDate.endOf("month").day(6).add(1, "day");
+export default function getMonthDaysByWeek(date: string): string[][] {
+  const newDate = dayjs(date);
+  let firstOfMonth = newDate.startOf("month");
+  if (firstOfMonth.day() !== 1) {
+    firstOfMonth = firstOfMonth.day(0);
+    firstOfMonth = firstOfMonth.add(1, "day");
+  }
+
+  let lastOfMonth = newDate.endOf("month");
+  if (lastOfMonth.day() !== 0) {
+    lastOfMonth = lastOfMonth.day(6);
+    lastOfMonth = lastOfMonth.add(1, "day");
+  }
 
   const weeks: string[][] = [];
   let week: string[] = [];
