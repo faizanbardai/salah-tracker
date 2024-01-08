@@ -13,6 +13,7 @@
     "@nextui-org/react": "^2.2.9",
     "@prisma/client": "^5.7.1",
     "@vercel/postgres": "^0.5.1",
+    "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
     "framer-motion": "^10.16.16",
     "moment-hijri": "^2.1.2",

@@ -8,6 +8,7 @@ import { PrayerStatus } from "@prisma/client";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 import useSWR from "swr";
+import classNames from "classnames";
 
 type PrayerViewMonthProps = {
   date: string;
@@ -50,24 +51,50 @@ export default function PrayerViewMonth({ date, setDate, setSelected }: PrayerVi
         </CardBody>
       </Card>
       {weeks.map((week, index) => (
-        <Card key={index} className="mb-2">
-          <CardBody>
-            <div className="grid grid-cols-7">
-              {week.map((day) => (
-                <div key={day}>
-                  <MonthDayStatus
-                    day={day}
-                    date={date}
-                    setDate={setDate}
-                    setSelected={setSelected}
-                    getDayPrayerStatus={getDayPrayerStatus}
-                  />
-                </div>
-              ))}
-            </div>
-          </CardBody>
-        </Card>
+        <MonthWeekRow
+          key={index}
+          week={week}
+          date={date}
+          setDate={setDate}
+          setSelected={setSelected}
+          getDayPrayerStatus={getDayPrayerStatus}
+        />
       ))}
     </>
+  );
+}
+
+type MonthWeekRowProps = {
+  week: string[];
+  date: string;
+  setDate: Dispatch<SetStateAction<string>>;
+  setSelected: Dispatch<SetStateAction<string>>;
+  getDayPrayerStatus: (day: string) => PrayerDay | null;
+};
+function MonthWeekRow(props: MonthWeekRowProps) {
+  const { week, date, setDate, setSelected, getDayPrayerStatus } = props;
+  const today = dayjs().format("YYYY-MM-DD");
+  const isTodayInWeek = week.includes(today);
+  const weekCardClass = classNames("mb-2", {
+    "border border-sky-800": isTodayInWeek,
+  });
+  return (
+    <Card className={weekCardClass}>
+      <CardBody>
+        <div className="grid grid-cols-7">
+          {week.map((day) => (
+            <div key={day}>
+              <MonthDayStatus
+                day={day}
+                date={date}
+                setDate={setDate}
+                setSelected={setSelected}
+                getDayPrayerStatus={getDayPrayerStatus}
+              />
+            </div>
+          ))}
+        </div>
+      </CardBody>
+    </Card>
   );
 }
