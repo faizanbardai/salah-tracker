@@ -15,7 +15,7 @@
     "@vercel/postgres": "^0.5.1",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^10.18.0",
     "moment-hijri": "^2.1.2",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
