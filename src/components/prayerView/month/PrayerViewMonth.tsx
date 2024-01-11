@@ -4,7 +4,6 @@ import { PrayerDay } from "@/types/prayerDay";
 import getMonthDaysByWeek from "@/utils/getMonthDaysByWeek";
 import getStartAndEndOfMonth from "@/utils/getStartAndEndOfMonth";
 import { Card, CardBody } from "@nextui-org/react";
-import { PrayerStatus } from "@prisma/client";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 import useSWR from "swr";
@@ -31,11 +30,6 @@ export default function PrayerViewMonth({ date, setDate, setSelected }: PrayerVi
   function getDayPrayerStatus(day: string): PrayerDay | null {
     const dayPrayer = (data || []).find((dayPrayer) => dayjs(dayPrayer.date).isSame(day, "day"));
     if (!dayPrayer) return null;
-    const { fajr, dhuhr, asr, maghrib, isha } = dayPrayer;
-    const notAllPrayed = [fajr, dhuhr, asr, maghrib, isha].some(
-      (prayer) => prayer === PrayerStatus.NOT_PRAYED
-    );
-    if (notAllPrayed) return null;
     return dayPrayer;
   }
 

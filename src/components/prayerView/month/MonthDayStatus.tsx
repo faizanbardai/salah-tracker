@@ -3,7 +3,7 @@ import { PrayerDay } from "@/types/prayerDay";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 import { IconContext } from "react-icons";
-import { FaCheck } from "react-icons/fa";
+import { IoCheckmark, IoCheckmarkDone } from "react-icons/io5";
 
 type MonthDayStatusProps = {
   day: string;
@@ -26,7 +26,7 @@ export default function MonthDayStatus(props: MonthDayStatusProps) {
 
   return (
     <div className={classNames} onClick={handleClick}>
-      <div className="mr-1">{dayjs(day).format("DD")} </div>
+      <div className="">{dayjs(day).format("DD")} </div>
       {dayPrayerStatus ? (
         <DayCheckMark dayPrayerStatus={dayPrayerStatus} />
       ) : (
@@ -42,20 +42,28 @@ type DayCheckMarkProps = {
 function DayCheckMark({ dayPrayerStatus }: DayCheckMarkProps) {
   const { fajr, dhuhr, asr, maghrib, isha } = dayPrayerStatus;
   const prayers = [fajr, dhuhr, asr, maghrib, isha];
-  const prayedAllWithJamaat = prayers.every((prayer) => prayer === PrayerStatus.PRAYED_WITH_JAMAAT);
+  const prayedAll = !prayers.some((prayer) => prayer === PrayerStatus.NOT_PRAYED);
+  const prayedOneWithJamaat = prayers.some((prayer) => prayer === PrayerStatus.PRAYED_WITH_JAMAAT);
   const prayedOneOnTime = prayers.some((prayer) => prayer === PrayerStatus.PRAYED_ON_TIME);
   const prayedOneQada = prayers.some((prayer) => prayer === PrayerStatus.PRAYED_QADA);
+  const prayedNone = prayers.every((prayer) => prayer === PrayerStatus.NOT_PRAYED);
 
+  const icon = prayedAll ? <IoCheckmarkDone /> : prayedNone ? <div></div> : <IoCheckmark />;
   const color = prayedOneQada
     ? "#eab308"
     : prayedOneOnTime
     ? "#3b82f6"
-    : prayedAllWithJamaat
+    : prayedOneWithJamaat
     ? "#22c55e"
     : "gray";
   return (
-    <IconContext.Provider value={{ color }}>
-      <FaCheck />
+    <IconContext.Provider
+      value={{
+        color,
+        size: "1.5rem",
+      }}
+    >
+      {icon}
     </IconContext.Provider>
   );
 }
