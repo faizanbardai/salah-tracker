@@ -3,7 +3,7 @@ const moment = require("moment-hijri");
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
-import { HijriDateContext } from "../../../providers/HijriDateProvider";
+import { HijriDateContext } from "@/providers/HijriDateProvider";
 
 type DisplayDateProps = {
   date: string;
