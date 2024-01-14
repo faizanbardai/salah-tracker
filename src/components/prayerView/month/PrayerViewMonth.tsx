@@ -7,7 +7,6 @@ import { Card, CardBody } from "@nextui-org/react";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 import useSWR from "swr";
-import classNames from "classnames";
 
 type PrayerViewMonthProps = {
   date: string;
@@ -67,25 +66,19 @@ type MonthWeekRowProps = {
 };
 function MonthWeekRow(props: MonthWeekRowProps) {
   const { week, date, setDate, setSelected, getDayPrayerStatus } = props;
-  const today = dayjs().format("YYYY-MM-DD");
-  const isTodayInWeek = week.includes(today);
-  const weekCardClass = classNames("mb-2", {
-    "border border-sky-800": isTodayInWeek,
-  });
   return (
-    <Card className={weekCardClass}>
+    <Card className="mb-2">
       <CardBody>
         <div className="grid grid-cols-7">
           {week.map((day) => (
-            <div key={day}>
-              <MonthDayStatus
-                day={day}
-                date={date}
-                setDate={setDate}
-                setSelected={setSelected}
-                getDayPrayerStatus={getDayPrayerStatus}
-              />
-            </div>
+            <MonthDayStatus
+              key={day}
+              day={day}
+              date={date}
+              setDate={setDate}
+              setSelected={setSelected}
+              getDayPrayerStatus={getDayPrayerStatus}
+            />
           ))}
         </div>
       </CardBody>
