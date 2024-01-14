@@ -1,14 +1,16 @@
 "use client";
 const moment = require("moment-hijri");
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
+import { HijriDateContext } from "@/providers/HijriDateProvider";
 
 type DisplayDateProps = {
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
 };
 export default function DisplayDateDay({ date, setDate }: DisplayDateProps) {
+  const { showHijriDate, setShowHijriDate } = useContext(HijriDateContext);
   const gregorianDate = new Date(date).toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -17,12 +19,6 @@ export default function DisplayDateDay({ date, setDate }: DisplayDateProps) {
   });
 
   const hijriDate = moment(date).format("iYYYY iMMMM iDD");
-
-  const [showHijriDate, setShowHijriDate] = useState(false);
-
-  useEffect(() => {
-    setShowHijriDate(localStorage.getItem("showHijriDate") === "true");
-  }, []);
 
   function redirectToYesterday() {
     const yesterday = new Date(date);
@@ -38,7 +34,6 @@ export default function DisplayDateDay({ date, setDate }: DisplayDateProps) {
 
   function handleClick() {
     setShowHijriDate(!showHijriDate);
-    localStorage.setItem("showHijriDate", String(!showHijriDate));
   }
 
   return (

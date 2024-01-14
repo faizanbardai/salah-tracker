@@ -1,5 +1,5 @@
 "use client";
-import DisplayDateDay from "@/components/DisplayDateDay";
+import DisplayDateDay from "@/components/prayerView/day/DisplayDateDay";
 import DisplayDateMonth from "@/components/prayerView/month/DisplayDateMonth";
 import PrayerViewMonth from "@/components/prayerView/month/PrayerViewMonth";
 import { DisplayDateWeek } from "@/components/prayerView/week/DisplayDateWeek";

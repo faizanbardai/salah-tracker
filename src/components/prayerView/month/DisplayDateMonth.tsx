@@ -1,27 +1,25 @@
 "use client";
 const moment = require("moment-hijri");
 import { Button } from "@nextui-org/react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
+import { HijriDateContext } from "@/providers/HijriDateProvider";
 
 type DisplayDateMonthProps = {
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
 };
 export default function DisplayDateMonth({ date, setDate }: DisplayDateMonthProps) {
+  const { showHijriDate, setShowHijriDate } = useContext(HijriDateContext);
+
   const gregorianDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
   });
   const hijriDate = moment(date).format("iYYYY iMMMM");
-  const [showHijriDate, setShowHijriDate] = useState(false);
 
-  useEffect(() => {
-    setShowHijriDate(localStorage.getItem("showHijriDate") === "true");
-  }, []);
   function handleClick() {
     setShowHijriDate(!showHijriDate);
-    localStorage.setItem("showHijriDate", String(!showHijriDate));
   }
   function redirectToPreviousMonth() {
     const previousMonth = new Date(date);
