@@ -1,21 +1,18 @@
 "use client";
 const moment = require("moment-hijri");
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 import { getStartAndEndOfWeek } from "@/utils/getStartAndEndOfWeek";
+import { HijriDateContext } from "@/providers/HijriDateProvider";
 
 type DisplayDateWeekProps = {
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
 };
 export const DisplayDateWeek = ({ date, setDate }: DisplayDateWeekProps) => {
+  const { showHijriDate, setShowHijriDate } = useContext(HijriDateContext);
   const [start, end] = getStartAndEndOfWeek(date);
-  const [showHijriDate, setShowHijriDate] = useState(false);
-
-  useEffect(() => {
-    setShowHijriDate(localStorage.getItem("showHijriDate") === "true");
-  }, []);
 
   const gregorianDateOptions: Intl.DateTimeFormatOptions = {
     weekday: "short",
@@ -29,7 +26,6 @@ export const DisplayDateWeek = ({ date, setDate }: DisplayDateWeekProps) => {
   const hijriDate = `${moment(start).format("iMMMM iDD")} - ${moment(end).format("iMMMM iDD")}`;
   function handleClick() {
     setShowHijriDate(!showHijriDate);
-    localStorage.setItem("showHijriDate", String(!showHijriDate));
   }
   function redirectToLastWeek() {
     const endOfLastWeek = new Date(start);
