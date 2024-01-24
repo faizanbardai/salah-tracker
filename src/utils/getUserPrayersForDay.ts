@@ -3,15 +3,17 @@ import { getUserId } from "@/utils/getUserId";
 
 export async function getUserPrayersForDay(date: string, email: string) {
   const dateTime = new Date(date).toISOString();
-  const existingPrayersForDay = await prisma.prayerDay.findFirst({
+
+  const userId = await getUserId(email);
+  const existingPrayersForDay = await prisma.prayerDay.findUnique({
     where: {
-      user: { email },
-      date: dateTime,
+      userId_date: {
+        userId: userId,
+        date: dateTime,
+      },
     },
   });
   if (existingPrayersForDay) return existingPrayersForDay;
-
-  const userId = await getUserId(email);
 
   const newRecord = await prisma.prayerDay.create({
     data: {
