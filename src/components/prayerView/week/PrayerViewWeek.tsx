@@ -4,8 +4,11 @@ import WeekDays from "@/components/prayerView/week/WeekDays";
 import { getPrayers } from "@/enum/Prayers";
 import { PrayerDay } from "@/types/prayerDay";
 import { getStartAndEndOfWeek } from "@/utils/getStartAndEndOfWeek";
+import { Card, CardBody, Divider } from "@nextui-org/react";
 import { Dispatch, SetStateAction } from "react";
 import useSWR from "swr";
+import FastWeekRow from "./FastWeekRow";
+import TahajjudWeekRow from "./TahajjudWeekRow";
 
 type PrayerViewWeekProps = {
   date: string;
@@ -23,17 +26,30 @@ export default function PrayerViewWeek({ date, setDate, setSelected }: PrayerVie
   if (isLoading) return <PrayerDayViewSkeleton />;
   if (!data) return <p>Failed to load</p>;
   return (
-    <>
-      <WeekDays weekPrayers={data} />
-      {prayers.map((prayer) => (
-        <PrayerWeekRow
-          key={prayer}
-          prayer={prayer}
-          weekPrayers={data}
-          setDate={setDate}
-          setSelected={setSelected}
-        />
-      ))}
-    </>
+    <Card>
+      <CardBody>
+        <WeekDays weekPrayers={data} />
+      </CardBody>
+      <Divider />
+      <CardBody>
+        {prayers.map((prayer) => (
+          <PrayerWeekRow
+            key={prayer}
+            prayer={prayer}
+            weekPrayers={data}
+            setDate={setDate}
+            setSelected={setSelected}
+          />
+        ))}
+      </CardBody>
+      <Divider />
+      <CardBody>
+        <TahajjudWeekRow date={date} weekFasts={data} setDate={setDate} setSelected={setSelected} />
+      </CardBody>
+      <Divider />
+      <CardBody>
+        <FastWeekRow date={date} weekFasts={data} setDate={setDate} setSelected={setSelected} />
+      </CardBody>
+    </Card>
   );
 }

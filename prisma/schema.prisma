@@ -23,7 +23,8 @@ model PrayerDay {
   asr      PrayerStatus @default(NOT_PRAYED)
   maghrib  PrayerStatus @default(NOT_PRAYED)
   isha     PrayerStatus @default(NOT_PRAYED)
-  tahajjud PrayerStatus @default(NOT_PRAYED)
+  tahajjud Boolean      @default(false)
+  fast     Boolean      @default(false)
   user     User         @relation(fields: [userId], references: [id])
 
   @@unique([userId, date])

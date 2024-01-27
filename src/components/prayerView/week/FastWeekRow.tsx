@@ -1,41 +1,45 @@
-import PrayerStatusIcon from "@/components/buttons/PrayerStatusIcon";
-import { Prayer, getPrayerDisplayName } from "@/enum/Prayers";
 import { PrayerDay } from "@/types/prayerDay";
 import { Button } from "@nextui-org/react";
 import { Dispatch, SetStateAction } from "react";
+import { IconContext } from "react-icons";
+import { FaUser } from "react-icons/fa";
 
-type PrayerWeekRowProps = {
-  prayer: Prayer;
-  weekPrayers: PrayerDay[];
+type FastWeekRowProps = {
+  date: string;
+  weekFasts: PrayerDay[];
   setDate: Dispatch<SetStateAction<string>>;
   setSelected: Dispatch<SetStateAction<string>>;
 };
-export default function PrayerWeekRow({
-  prayer,
-  weekPrayers,
-  setDate,
-  setSelected,
-}: PrayerWeekRowProps) {
+export default function FastWeekRow({ date, weekFasts, setDate, setSelected }: FastWeekRowProps) {
   function handleClick(date: string) {
     setDate(date);
     setSelected("Day");
   }
   return (
     <div className="flex gap-1 items-center">
-      <div className="flex-1">{getPrayerDisplayName(prayer)}</div>
-      {weekPrayers.map((weekPrayer) => {
-        const icon = PrayerStatusIcon(weekPrayer[prayer], true);
+      <div className="flex-1">Fast</div>
+      {weekFasts.map((weekFast) => {
+        const icon = weekFast.fast ? (
+          <IconContext.Provider
+            value={{
+              color: "#18c964",
+              size: "26",
+            }}
+          >
+            <FaUser />
+          </IconContext.Provider>
+        ) : null;
 
         return (
           <Button
-            key={weekPrayer.id}
+            key={weekFast.id}
             isIconOnly
             size="sm"
             aria-label="prayed status icon"
             radius="full"
             variant="bordered"
             className="border-none"
-            onClick={() => handleClick(weekPrayer.date as string)}
+            onClick={() => handleClick(weekFast.date as string)}
           >
             {icon}
           </Button>
