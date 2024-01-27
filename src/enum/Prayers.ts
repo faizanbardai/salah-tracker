@@ -4,7 +4,6 @@ enum Prayer {
   asr = "asr",
   maghrib = "maghrib",
   isha = "isha",
-  tahajjud = "tahajjud",
 }
 
 enum PrayerStatus {

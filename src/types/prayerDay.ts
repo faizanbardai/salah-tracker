@@ -9,5 +9,6 @@ export type PrayerDay = {
   asr: PrayerStatus;
   maghrib: PrayerStatus;
   isha: PrayerStatus;
-  tahajjud: PrayerStatus;
+  tahajjud: boolean;
+  fast: boolean;
 };

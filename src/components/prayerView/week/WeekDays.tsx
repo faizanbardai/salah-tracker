@@ -1,5 +1,4 @@
 import { PrayerDay } from "@/types/prayerDay";
-import { Card, CardBody } from "@nextui-org/react";
 
 type WeekDaysProps = {
   weekPrayers: PrayerDay[];
@@ -11,17 +10,13 @@ export default function WeekDays({ weekPrayers }: WeekDaysProps) {
     return day.slice(0, 2);
   });
   return (
-    <Card className="mb-2">
-      <CardBody>
-        <div className="flex gap-1">
-          <div className="flex-1"></div>
-          {days.map((day) => (
-            <div key={day} className="text-center" style={{ width: 32 }}>
-              {day}
-            </div>
-          ))}
+    <div className="flex gap-1">
+      <div className="flex-1"></div>
+      {days.map((day) => (
+        <div key={day} className="text-center" style={{ width: 32 }}>
+          {day}
         </div>
-      </CardBody>
-    </Card>
+      ))}
+    </div>
   );
 }
