@@ -3,7 +3,7 @@ import MonthDayStatus from "@/components/prayerView/month/MonthDayStatus";
 import { PrayerDay } from "@/types/prayerDay";
 import getMonthDaysByWeek from "@/utils/getMonthDaysByWeek";
 import getStartAndEndOfMonth from "@/utils/getStartAndEndOfMonth";
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody, Divider } from "@nextui-org/react";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 import useSWR from "swr";
@@ -33,27 +33,28 @@ export default function PrayerViewMonth({ date, setDate, setSelected }: PrayerVi
   }
 
   return (
-    <>
-      <Card className="mb-2">
-        <CardBody>
-          <div className="grid grid-cols-7 gap-1">
-            {weekDays.map((weekDay) => (
-              <div key={weekDay}>{weekDay}</div>
-            ))}
-          </div>
-        </CardBody>
-      </Card>
-      {weeks.map((week, index) => (
-        <MonthWeekRow
-          key={index}
-          week={week}
-          date={date}
-          setDate={setDate}
-          setSelected={setSelected}
-          getDayPrayerStatus={getDayPrayerStatus}
-        />
-      ))}
-    </>
+    <Card>
+      <CardBody>
+        <div className="grid gap-1 grid-cols-7">
+          {weekDays.map((weekDay) => (
+            <div key={weekDay}>{weekDay}</div>
+          ))}
+        </div>
+      </CardBody>
+      <Divider />
+      <CardBody>
+        {weeks.map((week, index) => (
+          <MonthWeekRow
+            key={index}
+            week={week}
+            date={date}
+            setDate={setDate}
+            setSelected={setSelected}
+            getDayPrayerStatus={getDayPrayerStatus}
+          />
+        ))}
+      </CardBody>
+    </Card>
   );
 }
 
@@ -67,21 +68,17 @@ type MonthWeekRowProps = {
 function MonthWeekRow(props: MonthWeekRowProps) {
   const { week, date, setDate, setSelected, getDayPrayerStatus } = props;
   return (
-    <Card className="mb-2">
-      <CardBody>
-        <div className="grid grid-cols-7">
-          {week.map((day) => (
-            <MonthDayStatus
-              key={day}
-              day={day}
-              date={date}
-              setDate={setDate}
-              setSelected={setSelected}
-              getDayPrayerStatus={getDayPrayerStatus}
-            />
-          ))}
-        </div>
-      </CardBody>
-    </Card>
+    <div className="grid gap-1 grid-cols-7 pb-1">
+      {week.map((day) => (
+        <MonthDayStatus
+          key={day}
+          day={day}
+          date={date}
+          setDate={setDate}
+          setSelected={setSelected}
+          getDayPrayerStatus={getDayPrayerStatus}
+        />
+      ))}
+    </div>
   );
 }

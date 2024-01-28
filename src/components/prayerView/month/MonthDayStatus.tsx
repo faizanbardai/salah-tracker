@@ -2,6 +2,7 @@ const moment = require("moment-hijri");
 import { PrayerStatus } from "@/enum/Prayers";
 import { HijriDateContext } from "@/providers/HijriDateProvider";
 import { PrayerDay } from "@/types/prayerDay";
+import { Badge } from "@nextui-org/react";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { IconContext } from "react-icons";
@@ -22,25 +23,32 @@ export default function MonthDayStatus(props: MonthDayStatusProps) {
   const isDayToday = day === dayjs().format("YYYY-MM-DD");
   let classNames = "flex items-center p-1";
   if (!isDayInCurrentMonth) classNames += " text-gray-400";
-  if (isDayToday) classNames += " border rounded-lg border-indigo-500";
+  if (isDayToday) classNames += " font-bold";
+  const fast = !!dayPrayerStatus?.fast;
+
+  if (dayPrayerStatus?.tahajjud) {
+    classNames += " border rounded-lg border-green-500";
+  }
 
   const handleClick = () => {
     setDate(dayjs(day).format("YYYY-MM-DD"));
     setSelected("Day");
   };
 
-  const gregorianDate = dayjs(day).format("DD");
-  const hijriDate = moment(day).format("iDD");
+  const gregorianDate = dayjs(day).format("DD") as string;
+  const hijriDate = moment(day).format("iDD") as string;
   const dateToDisplay = showHijriDate ? hijriDate : gregorianDate;
 
   return (
     <div className={classNames} onClick={handleClick}>
-      {dateToDisplay}
-      {dayPrayerStatus ? (
-        <DayCheckMark dayPrayerStatus={dayPrayerStatus} />
-      ) : (
-        <div style={{ width: "1rem" }} />
-      )}
+      <Badge content="" color="success" shape="circle" placement="top-right" isInvisible={!fast}>
+        {dateToDisplay}
+        {dayPrayerStatus ? (
+          <DayCheckMark dayPrayerStatus={dayPrayerStatus} />
+        ) : (
+          <div style={{ width: "1rem" }} />
+        )}
+      </Badge>
     </div>
   );
 }
