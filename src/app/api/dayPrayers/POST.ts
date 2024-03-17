@@ -15,7 +15,7 @@ export default async function POST(req: NextRequest) {
   const existingRecord = await prisma.prayerDay.findFirst({
     where: {
       date: dateTime,
-      user: { email: session.user.email },
+      User: { email: session.user.email },
     },
   });
 

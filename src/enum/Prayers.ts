@@ -7,10 +7,10 @@ enum Prayer {
 }
 
 enum PrayerStatus {
-  NOT_PRAYED = "NOT_PRAYED",
-  PRAYED_QADA = "PRAYED_QADA",
-  PRAYED_ON_TIME = "PRAYED_ON_TIME",
-  PRAYED_WITH_JAMAAT = "PRAYED_WITH_JAMAAT",
+  NOT_PRAYED = 0,
+  PRAYED_QADA = 1,
+  PRAYED_ON_TIME = 2,
+  PRAYED_WITH_JAMAAT = 3,
 }
 
 const getPrayers = () => {

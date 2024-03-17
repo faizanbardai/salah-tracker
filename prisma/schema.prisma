@@ -1,7 +1,8 @@
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider          = "sqlserver"
+  url               = env("AZURE_DATABASE_URL")
+  shadowDatabaseUrl = env("AZURE_DATABASE_URL_SHADOW")
+  relationMode      = "prisma"
 }
 
 generator client {
@@ -9,32 +10,27 @@ generator client {
 }
 
 model User {
-  id         String      @id @default(cuid())
+  id         Int         @id @default(autoincrement())
   email      String      @unique
   prayerDays PrayerDay[]
 }
 
 model PrayerDay {
-  id       String       @id @default(cuid())
-  date     DateTime
-  userId   String
-  fajr     PrayerStatus @default(NOT_PRAYED)
-  dhuhr    PrayerStatus @default(NOT_PRAYED)
-  asr      PrayerStatus @default(NOT_PRAYED)
-  maghrib  PrayerStatus @default(NOT_PRAYED)
-  isha     PrayerStatus @default(NOT_PRAYED)
-  tahajjud Boolean      @default(false)
-  fast     Boolean      @default(false)
-  user     User         @relation(fields: [userId], references: [id])
+  id     Int  @id @default(autoincrement())
+  userId Int
+  User   User @relation(fields: [userId], references: [id])
 
-  @@unique([userId, date])
+  date DateTime
+
+  fajr    Int @default(0)
+  dhuhr   Int @default(0)
+  asr     Int @default(0)
+  maghrib Int @default(0)
+  isha    Int @default(0)
+
+  tahajjud Boolean @default(false)
+  fast     Boolean @default(false)
+
+  @@unique([date, userId])
   @@index([userId])
-  @@index([date])
-}
-
-enum PrayerStatus {
-  NOT_PRAYED
-  PRAYED_QADA
-  PRAYED_ON_TIME
-  PRAYED_WITH_JAMAAT
 }

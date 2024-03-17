@@ -5,7 +5,7 @@ export async function getUserPrayers(start: string, end: string, email: string) 
   const endDate = new Date(end).toISOString();
   const userPrayers = await prisma.prayerDay.findMany({
     where: {
-      user: { email },
+      User: { email },
       date: {
         gte: startDate,
         lte: endDate,
