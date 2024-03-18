@@ -1,8 +1,7 @@
 datasource db {
-  provider          = "sqlserver"
-  url               = env("AZURE_DATABASE_URL")
-  shadowDatabaseUrl = env("AZURE_DATABASE_URL_SHADOW")
-  relationMode      = "prisma"
+  provider  = "postgresql"
+  url       = env("SUPABASE_TRANSACTION_URL")
+  directUrl = env("SUPABASE_SESSION_URL")
 }
 
 generator client {
