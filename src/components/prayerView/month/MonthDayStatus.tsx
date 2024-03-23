@@ -2,6 +2,7 @@ const moment = require("moment-hijri");
 import { PrayerStatus } from "@/enum/Prayers";
 import { HijriDateContext } from "@/providers/HijriDateProvider";
 import { PrayerDay } from "@/types/prayerDay";
+import isSameMonth from "@/utils/isDayInCurrentMonth";
 import { Badge } from "@nextui-org/react";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction, useContext } from "react";
@@ -19,10 +20,11 @@ export default function MonthDayStatus(props: MonthDayStatusProps) {
   const { showHijriDate } = useContext(HijriDateContext);
   const { day, date, setDate, setSelected, getDayPrayerStatus } = props;
   const dayPrayerStatus = getDayPrayerStatus(day);
-  const isDayInCurrentMonth = dayjs(day).format("MM") === dayjs(date).format("MM");
+  const dayIsInCurrentMonth = isSameMonth(date, day, showHijriDate);
+
   const isDayToday = day === dayjs().format("YYYY-MM-DD");
   let classNames = "flex items-center p-1";
-  if (!isDayInCurrentMonth) classNames += " text-gray-400";
+  if (!dayIsInCurrentMonth) classNames += " text-gray-400";
   if (isDayToday) classNames += " font-bold";
   const fast = !!dayPrayerStatus?.fast;
 

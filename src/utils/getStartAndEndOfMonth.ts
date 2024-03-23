@@ -1,12 +1,13 @@
-export default function getStartAndEndOfMonth(date: string) {
-  const startOfMonthDate = new Date(date);
-  startOfMonthDate.setDate(1);
-  const startOfMonth = startOfMonthDate.toISOString().slice(0, 10);
+const moment = require("moment-hijri");
+import dayjs from "dayjs";
 
-  const endOfMonthDate = new Date(date);
-  endOfMonthDate.setMonth(endOfMonthDate.getMonth() + 1);
-  endOfMonthDate.setDate(0);
-  const endOfMonth = endOfMonthDate.toISOString().slice(0, 10);
+export default function getStartAndEndOfMonth(date: string, showHijriDate: boolean): string[] {
+  const newDate = dayjs(date);
+  let startOfMonth = newDate.startOf("month");
+  if (showHijriDate) startOfMonth = dayjs(moment(date).startOf("iMonth").format());
 
-  return [startOfMonth, endOfMonth];
+  let endOfMonth = newDate.endOf("month");
+  if (showHijriDate) endOfMonth = dayjs(moment(date).endOf("iMonth").format());
+
+  return [startOfMonth.format("YYYY-MM-DD"), endOfMonth.format("YYYY-MM-DD")];
 }

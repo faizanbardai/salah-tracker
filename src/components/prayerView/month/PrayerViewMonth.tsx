@@ -5,8 +5,9 @@ import getMonthDaysByWeek from "@/utils/getMonthDaysByWeek";
 import getStartAndEndOfMonth from "@/utils/getStartAndEndOfMonth";
 import { Card, CardBody, Divider } from "@nextui-org/react";
 import dayjs from "dayjs";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import useSWR from "swr";
+import { HijriDateContext } from "../../../providers/HijriDateProvider";
 
 type PrayerViewMonthProps = {
   date: string;
@@ -14,7 +15,8 @@ type PrayerViewMonthProps = {
   setSelected: Dispatch<SetStateAction<string>>;
 };
 export default function PrayerViewMonth({ date, setDate, setSelected }: PrayerViewMonthProps) {
-  const [start, end] = getStartAndEndOfMonth(date);
+  const { showHijriDate } = useContext(HijriDateContext);
+  const [start, end] = getStartAndEndOfMonth(date, showHijriDate);
   const fetcher = (url: string): Promise<PrayerDay[]> => fetch(url).then((res) => res.json());
   const url = `/api/prayers?start=${start}&end=${end}`;
   const { data, error, isLoading } = useSWR(url, fetcher);
@@ -23,7 +25,7 @@ export default function PrayerViewMonth({ date, setDate, setSelected }: PrayerVi
   if (isLoading) return <PrayerDayViewSkeleton />;
   if (!data) return <p>Failed to load</p>;
 
-  const weeks: string[][] = getMonthDaysByWeek(date);
+  const weeks: string[][] = getMonthDaysByWeek(date, showHijriDate);
   const weekDays = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
   function getDayPrayerStatus(day: string): PrayerDay | null {
