@@ -13,9 +13,9 @@ import TahajjudWeekRow from "./TahajjudWeekRow";
 type PrayerViewWeekProps = {
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
-  setSelected: Dispatch<SetStateAction<string>>;
+  setSelectedTab: (tab: string) => void;
 };
-export default function PrayerViewWeek({ date, setDate, setSelected }: PrayerViewWeekProps) {
+export default function PrayerViewWeek({ date, setDate, setSelectedTab }: PrayerViewWeekProps) {
   const [start, end] = getStartAndEndOfWeek(date);
   const fetcher = (url: string): Promise<PrayerDay[]> => fetch(url).then((res) => res.json());
   const url = `/api/prayers?start=${start}&end=${end}`;
@@ -38,17 +38,27 @@ export default function PrayerViewWeek({ date, setDate, setSelected }: PrayerVie
             prayer={prayer}
             weekPrayers={data}
             setDate={setDate}
-            setSelected={setSelected}
+            setSelectedTab={setSelectedTab}
           />
         ))}
       </CardBody>
       <Divider />
       <CardBody>
-        <TahajjudWeekRow date={date} weekFasts={data} setDate={setDate} setSelected={setSelected} />
+        <TahajjudWeekRow
+          date={date}
+          weekFasts={data}
+          setDate={setDate}
+          setSelectedTab={setSelectedTab}
+        />
       </CardBody>
       <Divider />
       <CardBody>
-        <FastWeekRow date={date} weekFasts={data} setDate={setDate} setSelected={setSelected} />
+        <FastWeekRow
+          date={date}
+          weekFasts={data}
+          setDate={setDate}
+          setSelectedTab={setSelectedTab}
+        />
       </CardBody>
     </Card>
   );

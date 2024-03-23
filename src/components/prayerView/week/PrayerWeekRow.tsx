@@ -8,17 +8,17 @@ type PrayerWeekRowProps = {
   prayer: Prayer;
   weekPrayers: PrayerDay[];
   setDate: Dispatch<SetStateAction<string>>;
-  setSelected: Dispatch<SetStateAction<string>>;
+  setSelectedTab: (tab: string) => void;
 };
 export default function PrayerWeekRow({
   prayer,
   weekPrayers,
   setDate,
-  setSelected,
+  setSelectedTab,
 }: PrayerWeekRowProps) {
   function handleClick(date: string) {
     setDate(date);
-    setSelected("Day");
+    setSelectedTab("Day");
   }
   return (
     <div className="flex gap-1 items-center">

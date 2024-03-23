@@ -14,11 +14,11 @@ type MonthDayStatusProps = {
   date: string;
   getDayPrayerStatus: (date: string) => PrayerDay | null;
   setDate: Dispatch<SetStateAction<string>>;
-  setSelected: Dispatch<SetStateAction<string>>;
+  setSelectedTab: (tab: string) => void;
 };
 export default function MonthDayStatus(props: MonthDayStatusProps) {
   const { showHijriDate } = useContext(HijriDateContext);
-  const { day, date, setDate, setSelected, getDayPrayerStatus } = props;
+  const { day, date, setDate, setSelectedTab, getDayPrayerStatus } = props;
   const dayPrayerStatus = getDayPrayerStatus(day);
   const dayIsInCurrentMonth = isSameMonth(date, day, showHijriDate);
 
@@ -34,7 +34,7 @@ export default function MonthDayStatus(props: MonthDayStatusProps) {
 
   const handleClick = () => {
     setDate(dayjs(day).format("YYYY-MM-DD"));
-    setSelected("Day");
+    setSelectedTab("Day");
   };
 
   const gregorianDate = dayjs(day).format("DD") as string;

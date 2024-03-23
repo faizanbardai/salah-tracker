@@ -8,17 +8,17 @@ type TahajjudWeekRowProps = {
   date: string;
   weekFasts: PrayerDay[];
   setDate: Dispatch<SetStateAction<string>>;
-  setSelected: Dispatch<SetStateAction<string>>;
+  setSelectedTab: (tab: string) => void;
 };
 export default function TahajjudWeekRow({
   date,
   weekFasts,
   setDate,
-  setSelected,
+  setSelectedTab,
 }: TahajjudWeekRowProps) {
   function handleClick(date: string) {
     setDate(date);
-    setSelected("Day");
+    setSelectedTab("Day");
   }
   return (
     <div className="flex gap-1 items-center">

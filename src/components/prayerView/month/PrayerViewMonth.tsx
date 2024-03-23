@@ -12,9 +12,9 @@ import { HijriDateContext } from "../../../providers/HijriDateProvider";
 type PrayerViewMonthProps = {
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
-  setSelected: Dispatch<SetStateAction<string>>;
+  setSelectedTab: (tab: string) => void;
 };
-export default function PrayerViewMonth({ date, setDate, setSelected }: PrayerViewMonthProps) {
+export default function PrayerViewMonth({ date, setDate, setSelectedTab }: PrayerViewMonthProps) {
   const { showHijriDate } = useContext(HijriDateContext);
   const [start, end] = getStartAndEndOfMonth(date, showHijriDate);
   const fetcher = (url: string): Promise<PrayerDay[]> => fetch(url).then((res) => res.json());
@@ -51,7 +51,7 @@ export default function PrayerViewMonth({ date, setDate, setSelected }: PrayerVi
             week={week}
             date={date}
             setDate={setDate}
-            setSelected={setSelected}
+            setSelectedTab={setSelectedTab}
             getDayPrayerStatus={getDayPrayerStatus}
           />
         ))}
@@ -64,11 +64,11 @@ type MonthWeekRowProps = {
   week: string[];
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
-  setSelected: Dispatch<SetStateAction<string>>;
+  setSelectedTab: (tab: string) => void;
   getDayPrayerStatus: (day: string) => PrayerDay | null;
 };
 function MonthWeekRow(props: MonthWeekRowProps) {
-  const { week, date, setDate, setSelected, getDayPrayerStatus } = props;
+  const { week, date, setDate, setSelectedTab, getDayPrayerStatus } = props;
   return (
     <div className="grid gap-1 grid-cols-7 pb-1">
       {week.map((day) => (
@@ -77,7 +77,7 @@ function MonthWeekRow(props: MonthWeekRowProps) {
           day={day}
           date={date}
           setDate={setDate}
-          setSelected={setSelected}
+          setSelectedTab={setSelectedTab}
           getDayPrayerStatus={getDayPrayerStatus}
         />
       ))}
