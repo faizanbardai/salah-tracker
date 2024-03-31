@@ -11,7 +11,8 @@ import PrayerViewDay from "./day/PrayerViewDay";
 export default function PrayerViewTabs() {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
 
-  const defaultTab = localStorage.getItem("defaultTab") || "Day";
+  const defaultTab =
+    typeof window !== "undefined" ? localStorage.getItem("defaultTab") || "Day" : "Day";
 
   const [selectedTab, _setSelectedTab] = useState(defaultTab);
 
