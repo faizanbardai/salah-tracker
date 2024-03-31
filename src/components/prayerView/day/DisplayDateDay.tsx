@@ -1,9 +1,10 @@
 "use client";
 const moment = require("moment-hijri");
-import { Dispatch, SetStateAction, useContext } from "react";
-import { Button } from "@nextui-org/react";
-import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 import { HijriDateContext } from "@/providers/HijriDateProvider";
+import { Button } from "@nextui-org/react";
+import dayjs from "dayjs";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { MdNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 
 type DisplayDateProps = {
   date: string;
@@ -21,15 +22,11 @@ export default function DisplayDateDay({ date, setDate }: DisplayDateProps) {
   const hijriDate = moment(date).format("iYYYY iMMMM iDD");
 
   function redirectToYesterday() {
-    const yesterday = new Date(date);
-    yesterday.setDate(yesterday.getDate() - 1);
-    setDate(yesterday.toISOString().slice(0, 10));
+    setDate(dayjs(date).subtract(1, "day").format("YYYY-MM-DD"));
   }
 
   function redirectToTomorrow() {
-    const tomorrow = new Date(date);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    setDate(tomorrow.toISOString().slice(0, 10));
+    setDate(dayjs(date).add(1, "day").format("YYYY-MM-DD"));
   }
 
   function handleClick() {
