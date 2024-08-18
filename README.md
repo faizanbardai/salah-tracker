@@ -16,4 +16,5 @@ This is a simple web application that allows users to track their daily prayers.
 - Run `vercel login`
 - Run `vercel link`
 - Run `vercel env pull`
+- Run set `NEXTAUTH_URL="http://localhost:3000"`
 - Run `npm run dev`
